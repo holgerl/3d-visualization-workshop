@@ -11,8 +11,8 @@ Slides:
 
 Tasks:
 
-[task 1](https://github.com/holgerl/3d-visualization-workshop/tree/master/tasks/task1.md).
-[task 2](https://github.com/holgerl/3d-visualization-workshop/tree/master/tasks/task2.md).
+- [task 1](https://github.com/holgerl/3d-visualization-workshop/tree/master/tasks/task1.md).
+- [task 2](https://github.com/holgerl/3d-visualization-workshop/tree/master/tasks/task2.md).
 
 
 ## Part 2:
