@@ -1,6 +1,6 @@
 const THREE = require("three");
 const OrbitControls = require("three-orbit-controls")(THREE);
-const analyse = require("./soundanalyser.js");
+const initAnalyser = require("./soundanalyser.js");
 
 let scene, camera, renderer, cubes, analyser;
 
@@ -57,8 +57,8 @@ function makeCubesDance() {
   let min = analyser.analyser.minDecibels;
   let max = analyser.analyser.maxDecibels;
   let frequencies = analyser.frequencies();
-  cubes.forEach((c, i) =>
-    c.scale.set(1, normalise(min, max, frequencies[i]), 1)
+  cubes.forEach((cube, i) =>
+    cube.scale.set(1, normalise(min, max, frequencies[i]), 1)
   );
 }
 
@@ -69,7 +69,8 @@ function render() {
 }
 
 init();
-analyse(function(a) {
+
+initAnalyser(function(a) {
   analyser = a;
   render();
 });
