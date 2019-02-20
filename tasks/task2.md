@@ -40,12 +40,10 @@ For å lage et ensemble av dansende kuber trenger vi fler kuber enn vi har til n
 Det er ikke noe hokus-pokus i `three.js` for å gjøre dette, bare god gammeldags JavaScript. Dette er koden som ble brukt i oppgave 1 for å lage en kube:
 
 ```js
-let cube;
-
 function makeCube(width, height, depth) {
   let geometry = new THREE.BoxGeometry(width, height, depth);
   let material = new THREE.MeshNormalMaterial();
-  cube = new THREE.Mesh(geometry, material);
+  return new THREE.Mesh(geometry, material);
 }
 ```
 
@@ -63,7 +61,7 @@ Vårt forslag til deg er å lage en funksjon som lar deg beregne posisjonen til 
 
 ```js
 const startPosition = -10;
-const distanceBetween = 1;
+const distanceBetween = 1.25;
 
 // hvor cubeNumber er 1, 2, 3, osv for hver kube
 const position = startPosition + cubeNumber * distanceBetween;
@@ -73,7 +71,7 @@ cube.position.x = position;
 
 Her kan du velge å holde det enkelt og kun posisjonere kuber langs en av aksene (feks X-aksen), men det er fritt frem å være litt kreativ her. Det viktigste er at du får sett alle kubene.
 
-Her kan det også være en god ide å endre utgangsposisjonen til kameraet, feks ved å zoome enda litt lengre ut:
+Her kan det også være en god ide å endre utgangsposisjonen til kameraet, f.eks. ved å flytte det enda litt lengre ut:
 
 ```js
 camera.position.z = 40;
@@ -86,7 +84,7 @@ Da vil du se en større del av scena du har laga og forhåpentligvis alle kubene
 Det er nå det morsomme starter, koble på input for å endre på ting 🎶 Vi har laga en ferdig liten modul til deg som du kan bruke for å hente input fra mikrofonen på laptopen din:
 
 ```js
-const initAnalyser = require("./fasit/oppgave2/soundanalyser.js");
+const initAnalyser = require("../solutions/task2/soundanalyser.js");
 ```
 
 Den modulen kan du bruke på denne måten:
