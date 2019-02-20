@@ -3,7 +3,17 @@
   "version": "1.0.0",
   "description": "3D Visualization and three.js workshop",
   "scripts": {
-    "start": "budo src/index.js --live -- -t brfs"
+    "start": "budo src/index.js --dir src --live -- -t brfs",
+    "solution:1": "budo solutions/task1/index.js --dir src --live -- -t brfs",
+    "solution:2": "budo solutions/task2/index.js --dir src --live -- -t brfs",
+    "solution:3": "budo solutions/task3/index.js --dir src --live -- -t brfs",
+    "solution:4": "budo solutions/task4/index.js --dir src --live -- -t brfs",
+    "elective:flightsimulator": "budo electives/fasit/flightsimulator/index.js --dir src --dir ./electives --live -- -t brfs",
+    "elective:fragment-shader": "budo electives/fasit/fragment-shader/index.js --dir src --dir ./ --live -- -t brfs",
+    "elective:orthographic-car": "budo electives/fasit/orthographic-car/index.js --dir src --live -- -t brfs",
+    "elective:particle-system": "budo electives/fasit/particle-system/index.js --dir src --live -- -t brfs",
+    "elective:perlin-noise": "budo electives/fasit/perlin-noise/index.js --dir src --live -- -t brfs -t glslify",
+    "elective:play-with-sound": "budo electives/fasit/play-with-sound/index.js --dir src --live -- -t brfs"
   },
   "keywords": [
     "workshop",
