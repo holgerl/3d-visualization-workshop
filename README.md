@@ -1,17 +1,17 @@
-# Kursserie 3D-visualisering
+# 3D visualization workshop
 
-Dette er en kursserie på 3 dager. Hver dag tar cirka 3-4 timer.
+This is a half-day workshop on 3D visualization in webgl using three.js. 
 
-## Dag 1:
+## Part 1:
 
-Intromateriell:
+Introduction:
 
-- [Om 3D-visualisering](https://bekk.github.io/3d-visualisering-kursserie/dag1/slides/om-3d-visualisering.html)
-- [Om three.js](https://bekk.github.io/3d-visualisering-kursserie/dag1/slides/om-threejs.html)
+- [About 3d visualization](https://holgerl.github.io/3d-visualization-workshop/TODO)
+- [About three.js](https://holgerl.github.io/3d-visualization-workshop/dag1/TODO)
 
-Åpne [dag 1](https://github.com/bekk/3d-visualisering-kursserie/tree/master/dag1) og følg readme-en der.
+Open [part 1](https://github.com/holgerl/3d-visualization-workshop/tree/master/TODO) and follow the README there.
 
-## Dag 2:
+## Part 2:
 
 Intromateriell:
 
