@@ -4,21 +4,17 @@ This is a half-day workshop on 3D visualization in webgl using three.js.
 
 ## Part 1:
 
-Introduction:
+Slides:
 
-- [About 3d visualization](https://holgerl.github.io/3d-visualization-workshop/TODO)
-- [About three.js](https://holgerl.github.io/3d-visualization-workshop/dag1/TODO)
+- [About 3d visualization](https://holgerl.github.io/3d-visualization-workshop/part1/TODO)
+- [About three.js](https://holgerl.github.io/3d-visualization-workshop/part1/TODO)
 
-Open [part 1](https://github.com/holgerl/3d-visualization-workshop/tree/master/TODO) and follow the README there.
+Open [part 1](https://github.com/holgerl/3d-visualization-workshop/tree/master/part1) and follow the README.
 
 ## Part 2:
 
-Intromateriell:
+Slides:
 
-- [Om shadere](https://bekk.github.io/3d-visualisering-kursserie/dag2/slides/om-shadere.html)
+- [About shaders](https://holgerl.github.io/3d-visualization-workshop/part2/slides/TODO)
 
-Åpne [dag 2](https://github.com/bekk/3d-visualisering-kursserie/tree/master/dag2) og følg readme-en der.
-
-## Dag 3:
-
-Åpne [dag 3](https://github.com/bekk/3d-visualisering-kursserie/tree/master/dag3) og følg readme-en der.
+Open [part 1](https://github.com/bekk/3d-visualisering-kursserie/tree/master/part2) and follow the README.
