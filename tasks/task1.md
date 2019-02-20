@@ -8,18 +8,18 @@ Du har fått utdelt noe kode i prosjektet.
 
 ```sh
 3d-visualization-workshop/
-├── electives/                  # Bilder vi har i denne teksten
+├── electives/                  # Ekstra valgfrie oppgaver
 ├── slides/                     # Slides som har blitt vist frem
 ├── solutions/                  # Fasiten på de ulike oppgavene
-├── src/                        # 
-|   ├── fragmentshader.glsl     # 
+├── src/                        # Her skal all kildekoden vi skriver være
+|   ├── fragmentshader.glsl     # (Brukes i oppgave 3)
 |   ├── index.html              # HTML-fila som kjører koden vår
 |   ├── index.js                # JS-fila som blir kjørt
-|   └── vertexshader.glsl       # 
-├── tasks/                      # 
-├── README.md                   # Denne teksten
-├── package-lock.json           # Oversikt over versjonsnummere etc
-└── package.json                # Avhengigheter etc
+|   └── vertexshader.glsl       # (Brukes i oppgave 3)
+├── tasks/                      # Oppgavetekstene, inkludert den du leser nå
+├── README.md                   # Readme for hele workshopen
+├── package-lock.json           # Oversikt over versjonsnummere, etc
+└── package.json                # Avhengigheter, etc
 ```
 
 For å sparke i gang utviklingsprosessen, gjør følgende i en terminal i rotmappen til prosjektet:
