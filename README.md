@@ -11,8 +11,8 @@ Slides:
 
 Tasks:
 
-- [task 1](https://github.com/holgerl/3d-visualization-workshop/tree/master/tasks/task1.md).
-- [task 2](https://github.com/holgerl/3d-visualization-workshop/tree/master/tasks/task2.md).
+- [Task 1 - Hello cube world!](https://github.com/holgerl/3d-visualization-workshop/tree/master/tasks/task1.md)
+- [Task 2 - Animation and sensory input](https://github.com/holgerl/3d-visualization-workshop/tree/master/tasks/task2.md).
 
 
 ## Part 2:
