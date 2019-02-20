@@ -2,6 +2,10 @@
 
 Du skal gjøre om din snurrende kube til et ensemble av dansende kuber!
 
+![Forslag fasit oppgave 2](./bilder/oppgave2-fasit.gif)
+
+> Dette er et forslag til hvordan det kan se ut. Men det er såklart helt opp til dine kreative evner!
+
 ### Før du starter
 
 Hvis du ikke kom helt i mål med forrige oppgave kan du starte ferskt ved å kopiere fasiten som du finner i `solutions/task1/index.js`. Du kan også ta en titt på fasiten ved å kjøre:
