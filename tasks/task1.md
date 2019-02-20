@@ -64,7 +64,7 @@ init();
 render();
 ```
 
-Hvordan du strukturerer koden videre er opp til deg, dette er kun ment som forslag. I oppgaveteksten under vil det stå korte kodesnutter for å illustrere hvordan API-et til three.js funker, hvor du velger å kalle de funksjonene og legge variabel-deklarasjoner er opp til deg selv. Det kan være greit å huske på hvordan scoping fungerer i JavaScript hvis du ønsker å benytte en variabel i flere funksjoner.
+Hvordan du strukturerer koden videre er opp til deg, dette er kun ment som forslag. I oppgaveteksten under vil det stå korte kodesnutter for å illustrere hvordan API-et til three.js funker, hvor du velger å kalle de funksjonene og legge variabel-deklarasjoner er opp til deg selv. Det kan være greit å huske på hvordan scoping fungerer i JavaScript hvis du ønsker å benytte en variabel i flere funksjoner. Vi er glade i globale variabler for så små prosjekter som vi skal lage i dette kurset.
 
 ### Lage `three.js` renderer, scene og kamera
 
@@ -101,6 +101,7 @@ En [`Scene`](https://threejs.org/docs/index.html#api/scenes/Scene) er en grupper
 
 ```js
 let scene;
+
 scene = new THREE.Scene();
 ```
 
@@ -110,6 +111,7 @@ Vi trenger også et kamera til å beskue scenen. Det finnes mange ulike kamera s
 
 ```js
 let camera;
+
 camera = new THREE.PerspectiveCamera(fov, WIDTH / HEIGHT, near, far);
 ```
 
@@ -120,7 +122,7 @@ camera = new THREE.PerspectiveCamera(fov, WIDTH / HEIGHT, near, far);
 3.  Near. Hvor nærme må noe være for å være nærme? Dette påvirker synligheten til objekter.
 4.  Far. Hvor langt unna må noe være for å være langt unna? Dette påvirker også synligheten til objekter.
 
-`fov` er gjerne en verdi mellom 0 og 90 grader. For vårt formål er en verdi mellom 45 og 70 godt egna.
+`fov` er gjerne en verdi mellom 0 og 90 grader. For vårt formål er en verdi mellom 45 og 70 godt egna. I motsetning til de fleste andre vinkelmål er denne altså i grader, men det er ellers vanlig med radianer.
 
 `near` og `far` styrer hvilke objekter kameraet ser. For vårt formål er `0.01` og `1000` egna verdier. Da vil objekter som befinner seg mellom `0.01` og `1000` i koordinatsystemet være synlige.
 
@@ -130,7 +132,7 @@ Nå som vi har både en scene og et kamera kan vi be rendereren om å tegne ting
 renderer.render(scene, camera);
 ```
 
-Det er fortsatt ikke stort å se, for vi har ingen objekter i scenen. Men hvis du får en svart skjerm er sannsynligheten stor for at ting er OK.
+Det er fortsatt ikke stort å se, for vi har ingen objekter i scenen. Men hvis du får en svart skjerm og ingen feilmeldinger i loggen er sannsynligheten stor for at ting er OK.
 
 ### Hello Cube!
 
@@ -153,12 +155,10 @@ let material = new THREE.MeshNormalMaterial();
 Nå kan vi kombinere de tre tingene og lage en ferdig kube
 
 ```js
-let cube;
-
 function makeCube(height, width, depth) {
   let geometry = new THREE.BoxGeometry(height, width, depth);
   let material = new THREE.MeshNormalMaterial();
-  cube = new THREE.Mesh(geometry, material);
+  return new THREE.Mesh(geometry, material);
 }
 ```
 
@@ -168,7 +168,7 @@ For at kuben skal vises i visualiseringen vår må vi legge den til scena
 scene.add(cube);
 ```
 
-Men du ser antageligvis ingenting! Det er fordi kameraet vårt for øyeblikket befinner seg på akkurat samme posisjon som kuben. Hvis vi flytter kameraet et stykke bakover, vil ting bli synlig.
+Men du ser antageligvis ingenting! Det er fordi kameraet vårt for øyeblikket befinner seg på akkurat samme posisjon som kuben. Og er dermed inni den! Hvis vi flytter kameraet et stykke bakover, vil ting bli synlig.
 
 ```js
 camera.position.z = 5;
