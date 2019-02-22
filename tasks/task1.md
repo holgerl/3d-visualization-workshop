@@ -1,87 +1,87 @@
-# Oppgave 1: Intro til WebGL og `three.js`
+# Task 1: Intro to WebGL and `three.js`
 
-Du skal lage en snurrende kube. Den ultimate introen til WebGL og three.js
+In this task, you'll make a spinning cube - The ultimate introduction to WebGL and `three.js`.
 
-### Komme i gang
+### Getting started
 
-Du har fått utdelt noe kode i prosjektet.
+You'll find a lot of stuff in this project. Here is an overview:
 
 ```sh
 3d-visualization-workshop/
-├── electives/                  # Ekstra valgfrie oppgaver
-├── slides/                     # Slides som har blitt vist frem
-├── solutions/                  # Fasiten på de ulike oppgavene
-├── src/                        # Her skal all kildekoden vi skriver være
-|   ├── fragmentshader.glsl     # (Brukes i oppgave 3)
-|   ├── index.html              # HTML-fila som kjører koden vår
-|   ├── index.js                # JS-fila som blir kjørt
-|   └── vertexshader.glsl       # (Brukes i oppgave 3)
-├── tasks/                      # Oppgavetekstene, inkludert den du leser nå
-├── README.md                   # Readme for hele workshopen
-├── package-lock.json           # Oversikt over versjonsnummere, etc
-└── package.json                # Avhengigheter, etc
+├── electives/                  # Optional tasks for the ambitious student
+├── slides/                     # The slides that the tutors will go through
+├── solutions/                  # Suggested solutions to all the tasks
+├── src/                        # This is where your code will be written!
+|   ├── fragmentshader.glsl     # (Used in later tasks)
+|   ├── index.html              # The HTML file that runs the code
+|   ├── index.js                # The JavaScript code you will write
+|   └── vertexshader.glsl       # (Used in later tasks)
+├── tasks/                      # The task assignement text
+├── README.md                   # Readme for this workshop
+└── package.json                # Dependencies and build scripts
 ```
 
-For å sparke i gang utviklingsprosessen, gjør følgende i en terminal i rotmappen til prosjektet:
+To get going with the task, do the following in a terminal at the project root folder:
 
 ```sh
 npm install
 npm start
 ```
 
-Så åpner du `http://localhost:9966` i din utvalgte nettleser.
+Then, open `http://localhost:9966` in your favorite web browser
 
-Du skal da kunne se teksten `Velkommen til kurs!` på skjermen.
+You'll see the text `Velcome to the workshop` on the screen. Better open the developer tools (F12) right away so that you will see any error messages during the workshop.
 
-### Skrive kode
+### Writing code
 
-All kode kan skrives i `index.js`-fila du finner i `src`. Prosessen du startet i sted vil sørge for at nettleseren blir oppdatert med nyeste kode når du lagrer den fila.
+All code will go into the `index.js` file in the `src/` folder. Any updates saved to these files will trigger an automatic refresh in the browser, so you can see the effects right away.
 
-For å holde oppsettet så enkelt som mulig, har vi droppet å dra inn rammeverk som React eller Vue, så her er det bare å kjøre på med helt vanlig moderne JavaScript.
+Note that we have purposely avoided using any web frameworks like React or Vue to keep things as simple as possible. We will be using pure and modern JavaScript.
 
-I `index.js`-fila er det laget en veldig enkel boilerplate:
+In `index.js` there is some simple boilerplate code:
 
 ```js
-// Henter inn three.js
+// Retrieve the three.js dependency
 const THREE = require("three");
 
 function init() {
-  // Her kan du putte kode som bare skal gjøres én gang
+  // Here you'll put code that should run once at startup
 }
 
 function render() {
-  // sørger for å køe et nytt kall til render
+  // Make sure another call to this function is queued up for the browser to make (making it loop):
   requestAnimationFrame(render);
 
-  // Her kan du putte kode som skal gjøres hver "frame",
-  // som feks renderer.render();
-  // eller box.position.x += 10
+  // Here you'll put code that is run every "frame" in the loop
+  // Typically renderer.render()
+  // or box.position += 10
 }
 
-// Kall init-koden
+// Call the init function:
 init();
-// Spark i gang render-loopen
+
+// Start the render loop:
 render();
 ```
 
-Hvordan du strukturerer koden videre er opp til deg, dette er kun ment som forslag. I oppgaveteksten under vil det stå korte kodesnutter for å illustrere hvordan API-et til three.js funker, hvor du velger å kalle de funksjonene og legge variabel-deklarasjoner er opp til deg selv. Det kan være greit å huske på hvordan scoping fungerer i JavaScript hvis du ønsker å benytte en variabel i flere funksjoner. Vi er glade i globale variabler for så små prosjekter som vi skal lage i dette kurset.
+It is up to you how you structure your code. In this text there are many code snippets that illustrates how the `three.js` API is used, but where the function calls and variable declarations will go you have to figure out yourself. It is important to remember how scoping works in JavaScript if you have to use a variable several places. In a project of this size, the authors prefer a lot of global variables.
 
-### Lage `three.js` renderer, scene og kamera
+### Make a `three.js` renderer, scene and camera
 
-De første tingene du må lage for å komme i gang med `three.js` er:
+The first things you have to make to get started with `three.js` is:
 
-- en renderer til å tegne ting på skjermen
-- en scene som kan holde på elementene du vil tegne
-- et kamera som styrer hva du "ser" i scena.
+- a renderer to draw stuff on the screen
+- a scene that holds the elements to be drawn
+- a camera that controls what you "see" in the scene
 
-For å lage en renderer bruker du [`WebGLRenderer`](https://threejs.org/docs/index.html#api/renderers/WebGLRenderer) fra `three.js`. Hvis du ikke sender inn noen parametre til den vil den automatisk opprette et `canvas`-element for deg, som vil fungere som kontekst for WebGL-visualiseringen din.
+To make a renderer, use [`WebGLRenderer`](https://threejs.org/docs/index.html#api/renderers/WebGLRenderer) from `three.js`. If you don't pass any parameters, it will internally create a `canvas` element that will work as a context for your WebGL visualization.
 
 ```js
 let renderer;
 renderer = new THREE.WebGLRenderer();
 ```
 
-Du kan også sette høyde og bredde på renderen. En veldig vanlig ting å gjøre her er å sette høyde og bredde til størrelsen på browservinduet.
+You can set the height and with of the renderer, and you'll probably want to use the entire available browser window space:
 
 ```js
 const WIDTH = window.innerWidth;
@@ -89,15 +89,15 @@ const HEIGHT = window.innerHeight;
 renderer.setSize(WIDTH, HEIGHT);
 ```
 
-Renderen oppretter som sagt et `canvas`-element for deg, hvis du ønsker å se noe som helst må du legge til det elementet på nettsiden.
+To actually see the rendered image, the created `canvas` element need to be added to the document. It is available in the `domElement` field:
 
 ```js
 document.body.appendChild(renderer.domElement);
 ```
 
-Men for at renderen skal kunne rendre noe må den ha en scene og et kamera.
+The scene and camera is also needed to make the setup complete.
 
-En [`Scene`](https://threejs.org/docs/index.html#api/scenes/Scene) er en gruppering av objekter som visualiseringen din består av. Å initiere en scene kan du gjøre på denne måten:
+A [`Scene`](https://threejs.org/docs/index.html#api/scenes/Scene) is group of objects in space that make up your visualization. It is simple to initialize:
 
 ```js
 let scene;
@@ -105,9 +105,9 @@ let scene;
 scene = new THREE.Scene();
 ```
 
-Senere kommer vil også til å legge til objekter i scenen, men dette holder for nå.
+Later, you will add object to that scene, but this will hold for now.
 
-Vi trenger også et kamera til å beskue scenen. Det finnes mange ulike kamera som har ulike egenskaper, men for vårt formål passer et [`PerspectiveCamera`](https://threejs.org/docs/index.html#api/cameras/PerspectiveCamera) utmerket. Det er laget for å ligne måten vi mennesker ser ting og det har forholdsvis enkle egenskaper.
+Last, will make a camera to behold our scene. There exists multiple cameras with different properties, but for our purpose the [`PerspectiveCamera`](https://threejs.org/docs/index.html#api/cameras/PerspectiveCamera) will be excellent. It mimics the way the human eye works, and is easy to work with.
 
 ```js
 let camera;
@@ -115,24 +115,28 @@ let camera;
 camera = new THREE.PerspectiveCamera(fov, WIDTH / HEIGHT, near, far);
 ```
 
-`PerspectiveCamera` tar fire argumenter:
+`PerspectiveCamera` takes four parameters:
 
-1.  Field of View. Hvor mange grader er synsfeltet til kameraet?
-2.  Aspect Ratio. Hva er forholdet mellom høyde og bredde?
-3.  Near. Hvor nærme må noe være for å være nærme? Dette påvirker synligheten til objekter.
-4.  Far. Hvor langt unna må noe være for å være langt unna? Dette påvirker også synligheten til objekter.
+1.  Field of View. How wide or narrow is the area visible to the camera?
+2.  Aspect Ratio. What is the ratio between the height and width of the rendered image?
+3.  Near. How close to the camera can an object be and still be visible?
+4.  Far. How far away can an object be and still be visible?
 
-`fov` er gjerne en verdi mellom 0 og 90 grader. For vårt formål er en verdi mellom 45 og 70 godt egna. I motsetning til de fleste andre vinkelmål er denne altså i grader, men det er ellers vanlig med radianer.
+`fov` is usually a value between 0 and 90 degrees. For our purpose a value between 45 and 70 will look "normal". In contrast to almost all other angle values in WebGL, this is in degrees. Other angles will usually be expressed in radians.
 
-`near` og `far` styrer hvilke objekter kameraet ser. For vårt formål er `0.01` og `1000` egna verdier. Da vil objekter som befinner seg mellom `0.01` og `1000` i koordinatsystemet være synlige.
+Yo'll notice that the camera is agnostic to resolution of the rendered image. That is a property of the renderer. The camera will use the field of view and aspect ratio for its projections, and then at the end the renderer will smear the pixels over the given resolution.
 
-Nå som vi har både en scene og et kamera kan vi be rendereren om å tegne ting
+`near` and `far` controls which parts of the scene are ignored by the camera. This can speed things up if a lot of objects are too far away to make any difference. And it can avoid the entire screen being filled with an object that flows too close to the camera. For our purposes, the values `0.01` and `1000` will be suitable. This means that things between these values in the coordinate system will be visible. 
+
+What is the unit, you might ask? It is really just "a distance". As long as all distances are in the same coordinate system, it does not matter mathematically if `1.0` is a meter, a thousand meters or a foot. But it is often smart to just settle on it being a meter, and then try to stick to this when modelling real things in the visualization. And we all know the meter is the superior unit.
+
+Now that we have a scene and a camera, we can ask the renderer to draw things:
 
 ```js
 renderer.render(scene, camera);
 ```
 
-Det er fortsatt ikke stort å se, for vi har ingen objekter i scenen. Men hvis du får en svart skjerm og ingen feilmeldinger i loggen er sannsynligheten stor for at ting er OK.
+There will not be a lot to see, because we don't have any objects in the scene. But if you get a black screen without errors, you have probably done everything correctly.
 
 ### Hello Cube!
 
