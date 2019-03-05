@@ -140,23 +140,23 @@ There will not be a lot to see, because we don't have any objects in the scene. 
 
 ### Hello Cube!
 
-Vår første oppgave er å få en cube til å vises på skjermen. For å få til det trenger vi å lage en cube. En cube er et objekt, og de fleste objekter i `three.js` består av en geometri og et materiale. Geometrien avgjør formen på objektet og materiale avgjør utseende.
+Our first task will be to get a cube up on the screen. The cube is an object, and most objects in `three.js` consist of a geometry and a material. The geometry defines the shape of the object, and the material defines the looks.
 
-Den enkleste objekttypen er noe som kalles [`Mesh`](https://threejs.org/docs/index.html#api/objects/Mesh) som består av en masse trekanter, som vi vet WebGL er veldig glad i. Det er denne objekttypen vi vil bruke til å lage cuben vår.
+The simplest object type is the `Mesh`](https://threejs.org/docs/index.html#api/objects/Mesh). It consists of lot of triangles; and as we know, WebGL loves triangles. We are going to use `Mesh` to make our cube.
 
-Som nevnt trenger vi også en geometri, `three.js` har en hendig metode klar til bruk som heter [`BoxGeometry`](https://threejs.org/docs/#api/geometries/BoxGeometry). Den metoden tar inn tre verdier (høyde, bredde og dybde) og gir oss tilbake en geometri som representerer en boks (eller en cube) med de samme verdiene. Her er det bare å leke seg med verdiene og se på effekten.
+We need a geometry, and `three.js` has a neat class ready to use called [`BoxGeometry`](https://threejs.org/docs/#api/geometries/BoxGeometry). This class takes three values (height, width and depth) and returns a geometry representing a box with these dimensions. Play around with the parameters and see the results.
 
 ```js
 let geometry = new THREE.BoxGeometry(1, 1, 1);
 ```
 
-Vi trenger også et materiale. `three.js` kommer med mange ulike materialer ut av boksen, men et veldig enkelt materiale som lar oss se full 3D-effekt er [`MeshNormalMaterial`](https://threejs.org/docs/#api/materials/MeshNormalMaterial). Det fargelegger geometrien basert på hvilken vei normal-vektoren peker.
+We also need a material. `three.js` comes with a lot of those out of the box, but a simple material that lets us see the three dimensions clearly is the [`MeshNormalMaterial`](https://threejs.org/docs/#api/materials/MeshNormalMaterial). It will color the geometry based on the direction each triangle is facing.
 
 ```js
 let material = new THREE.MeshNormalMaterial();
 ```
 
-Nå kan vi kombinere de tre tingene og lage en ferdig kube
+We can now combine these three concepts and make a cube
 
 ```js
 function makeCube(height, width, depth) {
@@ -166,25 +166,25 @@ function makeCube(height, width, depth) {
 }
 ```
 
-For at kuben skal vises i visualiseringen vår må vi legge den til scena
+To actually be able to see the cube, we have to add it to the scene:
 
 ```js
 scene.add(cube);
 ```
 
-Men du ser antageligvis ingenting! Det er fordi kameraet vårt for øyeblikket befinner seg på akkurat samme posisjon som kuben. Og er dermed inni den! Hvis vi flytter kameraet et stykke bakover, vil ting bli synlig.
+But you will probably not see anything! This is because our camera is at the exact same position as the cube. Placing it inside it! If we move the camera back, we can see things properly:
 
 ```js
 camera.position.z = 5;
 ```
 
-Det var kanskje litt uimponerende, kuben ser helt flat ut. Men det kan vi fikse på ved å rotere kuben litt.
+The result is perhaps a little underwhelming; the cube looks flat. We can make it more enticing by rotating it.
 
-### Rotere kuben
+### Rotating the cube
 
-Alle objekter i `three.js` har noen attributter som styrer hvor de befinner seg, hvor store de er og hvilken vei de er rotert. Vi har allerede sett et eksempel på dette når vi endret posisjonen til kameraet for å se kuben.
+All objects in `three.js` have attributes controlling where they are, how big they are and which direction they are rotated. We have allready seen this when we moved the camera back to see the cube.
 
-For å endre på hvilken vei kuben vår er rotert kan vi sette noen verdier på rotasjonen til kuben.
+To change the cube's rotation, we change some values on the `.rotation` attribute:
 
 ```js
 cube.rotation.x = 1;
@@ -192,9 +192,9 @@ cube.rotation.y = 0.5;
 cube.rotation.z = 1.25;
 ```
 
-Da vil du kunne se at kuben har distinkte sider og faktisk er et 3D-objekt!
+Now you will se that the cube has multiple faces and is actually a 3D object!
 
-Men vi kan ta dette et steg videre og la kuben spinne av seg selv. For å få til det må vi endre rotasjonen litt hver frame og be rendereren om å tegne ting på nytt.
+We can take this a step further and let the cube rotate around by itself. To do this, we need to change the rotation a bit every frame and ask the renderer to draw the scene.
 
 ```js
 const SPEED = 0.01;
@@ -206,17 +206,18 @@ function rotateCube() {
 }
 ```
 
-Denne funksjonen kan du kalle inne i den funksjonen som blir kalt hver frame (hvis du har beholdt boilerplaten så heter den `render`), sammen med et nytt kall til rendererens render-metode:
+You can call `rotateCube()` inside the function that is called every frame. If you kept the boiler plate code, it is called `render()`. In addition, you should call the render function on the `renderer` to refresh the drawing of the scene:
 
 ```js
 renderer.render(scene, camera);
 ```
 
-Gratulerer, du har nå en snurrende kube!
+Congratulations, you now have spinning cube!
 
-Lek deg litt med de ulike verdiene og se hva som skjer med kuben. Noen forslag fra vår side:
+Play around with the different values and see what happens with the cube. Be creative! Here are some suggestions:
 
-- Gi kuben ulik rotasjonshastighet i de ulike retningene
-- Endre størrelsen på kubens geometri
-- Endre på attributtene til kameraet (near, far, where ever you are 🎶)
-- Endre på posisjonen til kameraet.
+- Vary the rotational speed of each separate axis
+- Chane the size of the cube geometry
+- Change the camera attributes (near, far, where ever you are 🎶)
+- Change the camera position
+- Can the camera also be rotated like the cube?
