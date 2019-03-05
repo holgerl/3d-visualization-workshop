@@ -1,14 +1,14 @@
-## Oppgave 2: Dancing cubes!
+## Task 2: Dancing cubes!
 
-Du skal gjøre om din snurrende kube til et ensemble av dansende kuber!
+You will now make your spinning cube into an ensemble of dancing cubes!
 
-![Forslag fasit oppgave 2](./bilder/oppgave2-fasit.gif)
+![Suggested solution task 2](./bilder/oppgave2-fasit.gif)
 
-> Dette er et forslag til hvordan det kan se ut. Men det er såklart helt opp til dine kreative evner!
+> This is just a suggestion. Your visualization might be very different, so just be creative!
 
-### Før du starter
+### Before we start
 
-Hvis du ikke kom helt i mål med forrige oppgave kan du starte ferskt ved å kopiere fasiten som du finner i `solutions/task1/index.js`. Du kan også ta en titt på fasiten ved å kjøre:
+If you did not quite get a grip on task 1, you can copy the suggested solution from `solutions/task1/index.js`. You can also take a quick look at how it looks by running:
 
 ```sh
 npm run solution:1
@@ -16,18 +16,18 @@ npm run solution:1
 
 ### OrbitControls
 
-Det første vi skal gjøre er å bruke et kjekt triks fra `three.js` som gjør det litt enklere å jobbe med 3D-kode. [`OrbitControls`](https://threejs.org/docs/index.html#examples/controls/OrbitControls) er en tilleggsmodul til `three.js` som gir oss et kamera som kan kontrolleres med mus. Da kan vi zoome og bevege oss rundt i scena litt som vi vil. Kjekt hvis du feks "mister" et objekt et sted 😅
+The first thing we are going to do is to leverage a very useful module in `three.js`. [`OrbitControls`](https://threejs.org/docs/index.html#examples/controls/OrbitControls) provides us with a mouse controllable camera. Very similar to what you can find in 3D editors, making us able to zoom, rotate and move around the scene. Very neat if you "lose track" of an object somewhere 😅
 
-For å bruke `OrbitControls` må vi først laste inn modulen det ligger i. Det gjør vi på følgende måte:
+To use `OrbitControls`, we have to load the module that contains it:
 
 ```js
 const OrbitControlsModule = require("three-orbit-controls");
 const OrbitControls = OrbitControlsModule(THREE);
 ```
 
-Legg spesielt merke til at vi sender inn `THREE` som et argument til modulen for å få en konstruktør som er bundet til den samme instansen av `THREE` vi bruker til resten av koden.
+Notice that `THREE` is passed as an argument to the module, so that the resulting constructor is bound to the same instance of `THREE` as the rest of the code.
 
-Når vi har en `OrbitControls`-konstruktør kan vi koble den til kameraet vårt for å koble på mus-navigasjon.
+Now that we have an `OrbitControls` constructor, we can connect it to our camera to enable mouse navigation.
 
 ```js
 let controls;
@@ -35,13 +35,13 @@ let controls;
 controls = new OrbitControls(camera);
 ```
 
-Nå kan du bevege deg fritt rundt i scena du har laga.
+Try moving around in the scene using both left and right mouse button, and the mouse wheel.
 
-### Multiplisere kubene
+### Multiply the cubes
 
-For å lage et ensemble av dansende kuber trenger vi fler kuber enn vi har til nå.
+To make an ensemble of dancing cubes, we need more cubes than currently in the scene. Also note that we will no longer provide you with every single piece of code that you need 👩‍🎓
 
-Det er ikke noe hokus-pokus i `three.js` for å gjøre dette, bare god gammeldags JavaScript. Dette er koden som ble brukt i oppgave 1 for å lage en kube:
+There is no magic in `three.js` to do this, just old fashioned JavaScript. Let's revisit the code from task 1 to make a single cube:
 
 ```js
 function makeCube(width, height, depth) {
@@ -51,81 +51,83 @@ function makeCube(width, height, depth) {
 }
 ```
 
-Det du må gjøre er å repetere dette så mange ganger du har lyst til. Om du foretrekker `for`-løkker eller `forEach`/`map` er opp til deg selv. Men det vil være en fordel å kunne refere til hver enkelt kube i stegene som kommer etterpå, så lagre alle kubene du lager i en liste 👍
+You have to repeat this as many times that you want. If you prefer `for` loops or `forEach`/`map` is up to you. But it will be important to be able to reference each cube in the rest of the task, so save them in an array for later.
 
-Du kan prøve å skrive om koden som du laga for å rotere kuben i oppgave 1 til å rotere alle kubene du nå har laga.
+After you have done that, you should rewrite the code for the single rotating cube so that all the cubes are rotated.
 
-### Posisjonering av kuber
+### Positioning the cubes
 
-Litt avhengig av hvordan du gjorde det forrige steget vil kubene havne litt rundt omkring eller kanskje rett oppå hverandre hvis alle fikk samme posisjon.
+Depending on how you solved the last step the cubes might be placed here and there, or they might be all on top of each other if they are given the same position.
 
-Nå må du finne en formel for hvordan du ønsker å plassere kubene dine. Du kan plassere hver av dem manuelt hvis du ønsker, men da blir det fort komplisert å endre på hvor mange kuber du har.
+You'll have to find a formula for the cube positions. You could give them each a position manually, but it will make it very complicated to change later.
 
-Vårt forslag til deg er å lage en funksjon som lar deg beregne posisjonen til en kube gitt nummeret i rekken av kuber og utgangsposisjonen.
+Our suggestion is to make a function that calculates the position of a cube given the cube's index number in the line of cubes, and the starting position:
 
 ```js
 const startPosition = -10;
 const distanceBetween = 1.25;
 
-// hvor cubeNumber er 1, 2, 3, osv for hver kube
+// where cubeNumber is 0, 1, 2, and so on for each cube
 const position = startPosition + cubeNumber * distanceBetween;
 
 cube.position.x = position;
 ```
 
-Her kan du velge å holde det enkelt og kun posisjonere kuber langs en av aksene (feks X-aksen), men det er fritt frem å være litt kreativ her. Det viktigste er at du får sett alle kubene.
+You can keep it simple and place the cubes along one of the axis (e.g. the X axis). But you can also be a little creative, as long as you are able to see all cubes.
 
-Her kan det også være en god ide å endre utgangsposisjonen til kameraet, f.eks. ved å flytte det enda litt lengre ut:
+You might need to change the starting position of the camera by moving it further out:
 
 ```js
 camera.position.z = 40;
 ```
 
-Da vil du se en større del av scena du har laga og forhåpentligvis alle kubene dine.
+You will then see a bigger part of the scene, and hopefully all the cubes.
 
-### Koble på lyd
+### Connect it to sound
 
-Det er nå det morsomme starter, koble på input for å endre på ting 🎶 Vi har laga en ferdig liten modul til deg som du kan bruke for å hente input fra mikrofonen på laptopen din:
+This is where the fun part begins: Connecting input that changes things 🎶
+
+We have made a little module that you can use to get input from the microphone on your laptop:
 
 ```js
 const initAnalyser = require("../solutions/task2/soundanalyser.js");
 ```
 
-Den modulen kan du bruke på denne måten:
+This module is used in this way:
 
 ```js
-init(); // Kaller init-funksjonen din som vanlig for å sette opp ting
+init(); // Call init to set up things as normally
 
-let analyser; // Ta vare på en referanse til analyseren
+let analyser; // Save a reference to the sound analyzer
 
-// Sett opp analyseren med et callback
+// Set up the analyzer with a callback
 initAnalyser(function(a) {
-  // Når analyse-funksjonen har kobla seg til mikrofonen
-  // vil denne koden bli kjørt
+  // When the initAnalyser function has connected to the microphone,
+  // this code runs
 
-  // Da får du en referanse til analyseren, som du bør ta vare på
+  // You will get a reference to the analyser as parameter
   analyser = a;
 
-  // Så kan du kalle render-funksjonen din
-  // som kicker i gang render-loopen som før
+  // You can then call the render function
+  // kickstarting your render loop as previous
   render();
 });
 ```
 
-> Hvis du lurer på hvordan den modulen ser ut kan du scrolle litt lengre ned, der finner du en kommentert utgave av kildekoden.
+> If you want to know more about how this microphone module works, you can scroll down to find a commented version of the source code.
 
-Analyser-objektet du får tilbake fra `initAnalyser`-funksjonen har en kjekk metode som heter `analyser.frequencies()`. Den gir deg en liste av decibel-verdier for de ulike frekvensene mikrofonen plukker opp. Frekvensene blir regnet ut med en Fast Fourier Transform (FFT), som i dette tilfellet vil gi deg tilbake en liste med `32` decibel-verdier som representerer alle frekvensene.
+The `analyser` object returned from `initAnalyser` has a neat method called `analyser.frequencies()`. It gives you a list of decibel values for all the different frequencies the microphone records. These frequencies are calculated using a Fast Fourier Transform (FFT), which in this case is a list of `32` decibel value representing each frequency.
 
-I tillegg kan du også lese ut max og min verdien til decibelene mikrofonen plukker opp. De finner du slik:
+You can also get the maximum and minimum values of the sound decibels like this:
 
 ```js
 const maxDecibels = analyser.analyser.maxDecibels;
 const minDecibels = analyser.analyser.minDecibels;
 ```
 
-> Her er det en del rariteter mellom datamaskiner. Hvis du får veldig rar oppførsel med verdiene over kan det lønne seg å bytte dem ut med 0 og 255.
+> There are some quirks between different computer platforms. If you get very strange minimum and maximum values, it might be better to simply use `0` and `255`
 
-De verdiene er kjekke å ha for å kunne normalisere decibel-verdien til en frekvens. Normalisering er navnet på å regne om en gitt nummer range til en `[0,1]` range.
+These values can be used to normalize the frequency values. Normalizing means to transform given a number range to a standard `[0, 1]` range.
 
 ```js
 function normalise(min, max, value) {
@@ -133,11 +135,11 @@ function normalise(min, max, value) {
 }
 ```
 
-Denne funksjonen gir deg tilbake et tall mellom `0` og `1` som svarer til hvor nærme min (nærmere 0) eller max (nærmere 1) value er. Dette er nyttig for å begrense verdiene du jobber med til noe som er innenfor en bestemt range.
+This function will return a number between `0` and `1` depending on how close `value` is to `min` and `max`. This is a very useful function in most visualization work.
 
-Nå som du har noen tall som svarer til hvor mange decibel av en gitt frekvens mikrofonen din har plukket opp kan vi koble disse til kubene vi har laga.
+Now that you have some numbers representing the recorded sound, we can hook this up to the cubes.
 
-Vi bytter ut koden som snurrer på kubene med noe som heller skalerer kubene etter hvor mye lyd som blir plukka opp.
+Let's replace the code that rotates the cubes with something that scales them instead according to the sound levels.
 
 ```js
 let frequencies = analyser.frequencies();
@@ -150,45 +152,45 @@ function scaleCube(cube, cubeNumber) {
 }
 ```
 
-Dette vil skalere kuben din i y-retning med en `scaleFactor` som er mellom `0` og `1`. Her er det bare å leke seg 🤹‍♂️
+This will scale your cube along the Y axis according to the `scaleFactor`, which is between `0` and `1`. You can also play around with this code 🤹‍♂️
 
-Hvis du har gjort ting riktig vil du nå se at kubene dine danser i takt med det mikrofonen din plukker opp. Gratulerer, du har nå en fiks ferdig musikk visualisering 👍
+If you have done things correctly, you will see the cubes dancing in the rythm of the sound the microphone picks up. Congratulations, you have a complete music visualization 👍
 
-> Hvis du ikke får mikrofonen til å plukke opp noe, sjekk at du er på `localhost:9966` og ikke IP-en til datamaskinen din. `localhost` er fritatt for en del av sikkerhetsmekanismene til nettleseren.
+> If you have trouble making the microphone record, make sure you are on `localhost`, and not your computer's specific IP address. `localhost` is excempt from many of the security constraints of your browser.
 
-Noen forslag til ting du kan endre på og leke med:
+We have some suggestions for things to change and play around with:
 
-- Skalere kuben i ulike retninger med ulike verdier
-- Endre start-størrelsen til kubene dine, kanskje du heller vil ha stolper?
-- Endre på posisjoneringen til kubene dine
+- Scale the cube in different directions
+- Change the size of the cubes, perhaps you can make columns?
+- Change the positions and spacing of the cubes
 
-### Bonus: Forklaring av soundanalyser-modulen
+### Bonus material: The sound analyzer module explained
 
 ```js
-// Bruker en modul som lager en web-audio AnalyserNode for oss
+// Use a third party module for web-audio
 const createAnalyser = require("web-audio-analyser");
 
-// Eksporter en funksjon fra modulen
-// Optional options for å enable flere enn 32 frekvenser
+// Export a function from this module
+// Optional options that enable more than 32 frequencies
 module.exports = function initAnalyser(callback, options = { fftSize: 64 }) {
-  // Vi ber nettleseren om lov til å bruke en mediaDevice
-  // Dette er en del av WebRTC APIet
+  // Ask the browser to use a mediaDevice
+  // This is part of the WebRTC API
   navigator.mediaDevices
-    // Vi ønsker bare audio, ikke video
+    // We only want audio, not video
     .getUserMedia({ video: false, audio: true })
-    // Hvis vi får tilgang, får vi et stream-objekt av mikrofonens input
+    // If we are given access, we receive a stream object from the microphone
     .then(function(stream) {
-      // Så bruker vi mikrofon-streamen til å lage en analyser
+      // We use the microphone stream to make an analyser
       const analyser = createAnalyser(stream, { stereo: false, audible: false });
 
-      // Vi setter fftSizen til analysern i henhold til det vi sendte inn
+      // Set the fftSize of the analyser according to options
       analyser.analyser.fftSize = options.fftSize;
 
-      // Så kaller vi callback-funksjonen som ble sendt inn
+      // We then call the callback given
       callback(analyser);
     })
 
-    // Hvis vi ikke får tilgang til mikrofonen logger vi en feilmelding
+    // If we cannot access the microphone, log an error
     .catch(function(error) {
       console.error(error);
     });
