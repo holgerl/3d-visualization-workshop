@@ -2,7 +2,7 @@
 
 You will now make your spinning cube into an ensemble of dancing cubes!
 
-![Suggested solution task 2](./bilder/oppgave2-fasit.gif)
+![Suggested solution task 2](./img/oppgave2-fasit.gif)
 
 > This is just a suggestion. Your visualization might be very different, so just be creative!
 
