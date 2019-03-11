@@ -90,7 +90,7 @@ This is where the fun part begins: Connecting input that changes things 🎶
 We have made a little module that you can use to get input from the microphone on your laptop:
 
 ```js
-const initAnalyser = require("../solutions/task2/soundanalyser.js");
+const initAnalyser = require("./lib/soundanalyser.js");
 ```
 
 This module is used in this way:
