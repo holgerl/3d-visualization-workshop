@@ -1,4 +1,4 @@
-## Task 2: Dancing cubes!
+# Task 2: Dancing cubes!
 
 You will now make your spinning cube into an ensemble of dancing cubes!
 
@@ -6,7 +6,7 @@ You will now make your spinning cube into an ensemble of dancing cubes!
 
 > This is just a suggestion. Your visualization might be very different, so just be creative!
 
-### Before we start
+## Before we start
 
 If you did not quite get a grip on task 1, you can copy the suggested solution from `solutions/task1/index.js`. You can also take a quick look at how it looks by running:
 
@@ -14,7 +14,7 @@ If you did not quite get a grip on task 1, you can copy the suggested solution f
 npm run solution:1
 ```
 
-### OrbitControls
+## OrbitControls
 
 The first thing we are going to do is to leverage a very useful module in `three.js`. [`OrbitControls`](https://threejs.org/docs/index.html#examples/controls/OrbitControls) provides us with a mouse controllable camera. Very similar to what you can find in 3D editors, making us able to zoom, rotate and move around the scene. Very neat if you "lose track" of an object somewhere 😅
 
@@ -37,7 +37,7 @@ controls = new OrbitControls(camera);
 
 Try moving around in the scene using both left and right mouse button, and the mouse wheel.
 
-### Multiply the cubes
+## Multiply the cubes
 
 To make an ensemble of dancing cubes, we need more cubes than currently in the scene. Also note that we will no longer provide you with every single piece of code that you need 👩‍🎓
 
@@ -55,7 +55,7 @@ You have to repeat this as many times that you want. If you prefer `for` loops o
 
 After you have done that, you should rewrite the code for the single rotating cube so that all the cubes are rotated.
 
-### Positioning the cubes
+## Positioning the cubes
 
 Depending on how you solved the last step the cubes might be placed here and there, or they might be all on top of each other if they are given the same position.
 
@@ -83,7 +83,7 @@ camera.position.z = 40;
 
 You will then see a bigger part of the scene, and hopefully all the cubes.
 
-### Connect it to sound
+## Connect it to sound
 
 This is where the fun part begins: Connecting input that changes things 🎶
 
@@ -164,7 +164,7 @@ We have some suggestions for things to change and play around with:
 - Change the size of the cubes, perhaps you can make columns?
 - Change the positions and spacing of the cubes
 
-### Bonus material: The sound analyzer module explained
+## Bonus material: The sound analyzer module explained
 
 ```js
 // Use a third party module for web-audio

@@ -2,7 +2,7 @@
 
 In this task, you'll make a spinning cube - The ultimate introduction to WebGL and `three.js`.
 
-### Getting started
+## Getting started
 
 You'll find a lot of stuff in this project. Here is an overview:
 
@@ -32,7 +32,7 @@ Then, open `http://localhost:9966` in your favorite web browser
 
 You'll see the text `Velcome to the workshop` on the screen. Better open the developer tools (F12) right away so that you will see any error messages during the workshop.
 
-### Writing code
+## Writing code
 
 All code will go into the `index.js` file in the `src/` folder. Any updates saved to these files will trigger an automatic refresh in the browser, so you can see the effects right away.
 
@@ -66,7 +66,7 @@ render();
 
 It is up to you how you structure your code. In this text there are many code snippets that illustrates how the `three.js` API is used, but where the function calls and variable declarations will go you have to figure out yourself. It is important to remember how scoping works in JavaScript if you have to use a variable several places. In a project of this size, the authors prefer a lot of global variables.
 
-### Make a `three.js` renderer, scene and camera
+## Make a `three.js` renderer, scene and camera
 
 The first things you have to make to get started with `three.js` is:
 
@@ -126,7 +126,7 @@ camera = new THREE.PerspectiveCamera(fov, WIDTH / HEIGHT, near, far);
 
 Yo'll notice that the camera is agnostic to resolution of the rendered image. That is a property of the renderer. The camera will use the field of view and aspect ratio for its projections, and then at the end the renderer will smear the pixels over the given resolution.
 
-`near` and `far` controls which parts of the scene are ignored by the camera. This can speed things up if a lot of objects are too far away to make any difference. And it can avoid the entire screen being filled with an object that flows too close to the camera. For our purposes, the values `0.01` and `1000` will be suitable. This means that things between these values in the coordinate system will be visible. 
+`near` and `far` controls which parts of the scene are ignored by the camera. This can speed things up if a lot of objects are too far away to make any difference. And it can avoid the entire screen being filled with an object that flows too close to the camera. For our purposes, the values `0.01` and `1000` will be suitable. This means that things between these values in the coordinate system will be visible.
 
 What is the unit, you might ask? It is really just "a distance". As long as all distances are in the same coordinate system, it does not matter mathematically if `1.0` is a meter, a thousand meters or a foot. But it is often smart to just settle on it being a meter, and then try to stick to this when modelling real things in the visualization. And we all know the meter is the superior unit.
 
@@ -138,7 +138,7 @@ renderer.render(scene, camera);
 
 There will not be a lot to see, because we don't have any objects in the scene. But if you get a black screen without errors, you have probably done everything correctly.
 
-### Hello Cube!
+## Hello Cube!
 
 Our first task will be to get a cube up on the screen. The cube is an object, and most objects in `three.js` consist of a geometry and a material. The geometry defines the shape of the object, and the material defines the looks.
 
@@ -180,7 +180,7 @@ camera.position.z = 5;
 
 The result is perhaps a little underwhelming; the cube looks flat. We can make it more enticing by rotating it.
 
-### Rotating the cube
+## Rotating the cube
 
 All objects in `three.js` have attributes controlling where they are, how big they are and which direction they are rotated. We have allready seen this when we moved the camera back to see the cube.
 
