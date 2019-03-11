@@ -1,6 +1,6 @@
 const THREE = require("three");
 const OrbitControls = require("three-orbit-controls")(THREE);
-const initAnalyser = require("./soundanalyser.js");
+const initAnalyser = require("../../src/lib/soundanalyser.js");
 
 let scene, camera, renderer, cubes, analyser;
 
@@ -34,28 +34,29 @@ function initRenderer() {
 }
 
 function initCubes() {
-  cubes = Array(NUM_CUBES)
-    .fill()
-    .map(function(_, i) {
-      let n = -1 * Math.floor(NUM_CUBES / 2) + i;
-      let cube = new THREE.Mesh(
-        new THREE.CubeGeometry(1, 1, 1),
-        new THREE.MeshNormalMaterial()
-      );
-      cube.position.set(n * 1 + n * 0.1, 0, 0);
-      scene.add(cube);
+  cubes = []
 
-      return cube;
-    });
+  let geometry = new THREE.CubeGeometry(1, 1, 1);
+  let material = new THREE.MeshNormalMaterial()
+
+  for (let i = 0; i < NUM_CUBES; i++) {
+    let n = i - Math.floor(NUM_CUBES / 2);
+    let cube = new THREE.Mesh(geometry, material);
+
+    cube.position.set(n + n * 0.1, 0, 0);
+
+    scene.add(cube);
+    cubes.push(cube);
+  }
 }
 
 function normalise(min, max, v) {
   return (v - min) / max;
 }
 
-function makeCubesDance() {
-  let min = analyser.analyser.minDecibels;
-  let max = analyser.analyser.maxDecibels;
+function dance() {
+  let min = 0;
+  let max = 255;
   let frequencies = analyser.frequencies();
   cubes.forEach((cube, i) =>
     cube.scale.set(1, normalise(min, max, frequencies[i]), 1)
@@ -64,7 +65,7 @@ function makeCubesDance() {
 
 function render() {
   requestAnimationFrame(render);
-  makeCubesDance();
+  dance();
   renderer.render(scene, camera);
 }
 
