@@ -1,13 +1,15 @@
 # 3D visualization workshop
 
-This is a half-day workshop on 3D visualization in webgl using three.js. 
+This is a half-day (3 hours) workshop on 3D visualization with webgl using three.js.
 
 ## Part 1:
 
-Slides:
+In this part we familiarize ourselves with the three.js API by creating some simple objects and hooking them up with input from the microphone.
 
-- [About 3d visualization](https://holgerl.github.io/3d-visualization-workshop/slides/om-3d-visualisering.html)
-- [About three.js](https://holgerl.github.io/3d-visualization-workshop/slides/om-threejs.html)
+Intro material:
+
+- [About 3d visualization](https://holgerl.github.io/3d-visualization-workshop/slides/about-3d-visualization.html)
+- [About three.js](https://holgerl.github.io/3d-visualization-workshop/slides/about-threejs.html)
 
 Tasks:
 
@@ -17,8 +19,13 @@ Tasks:
 
 ## Part 2:
 
-Slides:
+In this part we will look at shaders, what their role are and what they can do. We also look at how we can use shaders in three.js.
 
-- [About shaders](https://holgerl.github.io/3d-visualization-workshop/slides/om-shadere.html)
+Intro material:
 
-Open [part 2](https://github.com/bekk/3d-visualisering-kursserie/tree/master/part2) and follow the README.
+- [About shaders](https://holgerl.github.io/3d-visualization-workshop/slides/about-shaders.html)
+
+Tasks:
+
+- [Task 3 - Fragment shaders](https://github.com/holgerl/3d-visualization-workshop/tree/master/tasks/task3.md)
+- [Task 4 - Vertex shaders](https://github.com/holgerl/3d-visualization-workshop/tree/master/tasks/task4.md)
