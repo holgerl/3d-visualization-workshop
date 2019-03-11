@@ -1,9 +1,9 @@
 const THREE = require("three");
 
 function init() {
-  // Disse tre linjene kan du slette når du starter på din egen kode
+  // You can delete these three lines when you begin coding
   const hello = document.createElement("p");
-  hello.innerText = "Velkommen til kurs!";
+  hello.innerText = "Welcome to the workshop!";
   document.body.appendChild(hello);
 }
 
