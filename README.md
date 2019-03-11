@@ -29,3 +29,23 @@ Tasks:
 
 - [Task 3 - Fragment shaders](https://github.com/holgerl/3d-visualization-workshop/tree/master/tasks/task3.md)
 - [Task 4 - Vertex shaders](https://github.com/holgerl/3d-visualization-workshop/tree/master/tasks/task4.md)
+
+## Electives
+
+In the `electives`-folder you will find additional tasks. These were made for another longer version of this workshop. Should you complete the material and still have time left or simply wish to explore more on your own, feel free to give them a go.
+
+To start an elective:
+```sh
+npm run elective:[name of elective]
+```
+
+To view the solution to an elective:
+```sh
+npm run solution:[name of elective]
+```
+
+> NB: Not all of the electives have been translated to English
+
+## History
+
+This workshop came together as a 3-part workshop series developed by Bekk for students at NTNU. The original version can be found at [bekk/3d-visualisering-kursserie](http://github.com/bekk/3d-visualisering-kursserie). The original version is in Norwegian only.

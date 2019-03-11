@@ -4,16 +4,22 @@
   "description": "3D Visualization and three.js workshop",
   "scripts": {
     "start": "budo src/index.js --dir src --live -- -t brfs",
+    "elective:flightsimulator": "budo electives/flightsimulator/index.js --dir src --dir ./electives --live -- -t brfs",
+    "elective:fragment-shader": "budo electives/fragment-shader/index.js --dir src --dir ./ --live -- -t brfs",
+    "elective:orthographic-car": "budo electives/orthographic-car/index.js --dir src --live -- -t brfs",
+    "elective:particle-system": "budo electives/particle-system/index.js --dir src --live -- -t brfs",
+    "elective:perlin-noise": "budo electives/perlin-noise/index.js --dir src --live -- -t brfs -t glslify",
+    "elective:play-with-sound": "budo electives/play-with-sound/index.js --dir src --live -- -t brfs",
     "solution:1": "budo solutions/task1/index.js --dir src --live -- -t brfs",
     "solution:2": "budo solutions/task2/index.js --dir src --live -- -t brfs",
     "solution:3": "budo solutions/task3/index.js --dir src --live -- -t brfs",
     "solution:4": "budo solutions/task4/index.js --dir src --live -- -t brfs",
-    "elective:flightsimulator": "budo electives/solutions/flightsimulator/index.js --dir src --dir ./electives --live -- -t brfs",
-    "elective:fragment-shader": "budo electives/solutions/fragment-shader/index.js --dir src --dir ./ --live -- -t brfs",
-    "elective:orthographic-car": "budo electives/solutions/orthographic-car/index.js --dir src --live -- -t brfs",
-    "elective:particle-system": "budo electives/solutions/particle-system/index.js --dir src --live -- -t brfs",
-    "elective:perlin-noise": "budo electives/solutions/perlin-noise/index.js --dir src --live -- -t brfs -t glslify",
-    "elective:play-with-sound": "budo electives/solutions/play-with-sound/index.js --dir src --live -- -t brfs"
+    "solution:flightsimulator": "budo electives/solutions/flightsimulator/index.js --dir src --dir ./electives --live -- -t brfs",
+    "solution:fragment-shader": "budo electives/solutions/fragment-shader/index.js --dir src --dir ./ --live -- -t brfs",
+    "solution:orthographic-car": "budo electives/solutions/orthographic-car/index.js --dir src --live -- -t brfs",
+    "solution:particle-system": "budo electives/solutions/particle-system/index.js --dir src --live -- -t brfs",
+    "solution:perlin-noise": "budo electives/solutions/perlin-noise/index.js --dir src --live -- -t brfs -t glslify",
+    "solution:play-with-sound": "budo electives/solutions/play-with-sound/index.js --dir src --live -- -t brfs"
   },
   "keywords": [
     "workshop",
