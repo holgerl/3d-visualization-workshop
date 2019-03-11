@@ -59,7 +59,7 @@ function dance() {
   let max = 255;
   let frequencies = analyser.frequencies();
   cubes.forEach((cube, i) =>
-    cube.scale.set(1, normalise(min, max, frequencies[i]), 1)
+    cube.scale.set(1, 1 + normalise(min, max, frequencies[i]), 1)
   );
 }
 

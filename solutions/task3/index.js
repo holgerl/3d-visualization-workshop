@@ -12,20 +12,19 @@ const fragmentShaderCode = fs.readFileSync(
   "utf8"
 );
 
-let scene, camera, renderer, analyser;
-let spheres;
+let scene, camera, renderer, cubes, analyser;
 
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 
-const NUM_SPHERES = 32;
+const NUM_CUBES = 32;
 
 function init() {
   scene = new THREE.Scene();
 
+  initCubes();
   initCamera();
   initRenderer();
-  initSpheres();
 
   document.body.appendChild(renderer.domElement);
 
@@ -44,24 +43,23 @@ function initRenderer() {
   renderer.setSize(WIDTH, HEIGHT);
 }
 
-function initSpheres() {
-  spheres = [];
+function initCubes() {
+  cubes = []
 
-  for (let i = 0; i < NUM_SPHERES; i++) {
-    let material = new THREE.ShaderMaterial({
-      vertexShader: vertexShaderCode,
-      fragmentShader: fragmentShaderCode
-    });
-    let geometry = new THREE.SphereGeometry(1, 128, 64);
+  let geometry = new THREE.CubeGeometry(1, 1, 1);
+  let material = new THREE.ShaderMaterial({
+    vertexShader: vertexShaderCode,
+    fragmentShader: fragmentShaderCode
+  });
 
-    let sphere = new THREE.Mesh(geometry, material);
-    let xPos = (i % (NUM_SPHERES / 4)) * 4 - 3.5 * 4;
-    let yPos = 0;
-    let zPos = Math.floor(i / (NUM_SPHERES / 4)) * 4 - 2 * 4;
-    sphere.position.set(xPos, yPos, zPos);
+  for (let i = 0; i < NUM_CUBES; i++) {
+    let n = i - Math.floor(NUM_CUBES / 2);
+    let cube = new THREE.Mesh(geometry, material);
 
-    scene.add(sphere);
-    spheres.push(sphere);
+    cube.position.set(n + n * 0.1, 0, 0);
+
+    scene.add(cube);
+    cubes.push(cube);
   }
 }
 
@@ -73,12 +71,9 @@ function dance() {
   let min = 0;
   let max = 255;
   let frequencies = analyser.frequencies();
-
-  spheres.forEach(function(sphere, i) {
-    let f = 1 + normalise(min, max, frequencies[i]);
-
-    sphere.scale.set(f, f, f);
-  });
+  cubes.forEach((cube, i) =>
+    cube.scale.set(1, 1 + normalise(min, max, frequencies[i]), 1)
+  );
 }
 
 function render() {
@@ -88,6 +83,7 @@ function render() {
 }
 
 init();
+
 initAnalyser(function(a) {
   analyser = a;
   render();
