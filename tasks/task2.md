@@ -44,11 +44,9 @@ To make an ensemble of dancing cubes, we need more cubes than currently in the s
 There is no magic in `three.js` to do this, just old fashioned JavaScript. Let's revisit the code from task 1 to make a single cube:
 
 ```js
-function makeCube(width, height, depth) {
-  let geometry = new THREE.BoxGeometry(width, height, depth);
-  let material = new THREE.MeshNormalMaterial();
-  return new THREE.Mesh(geometry, material);
-}
+let geometry = new THREE.BoxGeometry(width, height, depth);
+let material = new THREE.MeshNormalMaterial();
+let cube = new THREE.Mesh(geometry, material);
 ```
 
 You have to repeat this as many times that you want. If you prefer `for` loops or `forEach`/`map` is up to you. But it will be important to be able to reference each cube in the rest of the task, so save them in an array for later.
@@ -68,7 +66,7 @@ const startPosition = -10;
 const distanceBetween = 1.25;
 
 // where cubeNumber is 0, 1, 2, and so on for each cube
-const position = startPosition + cubeNumber * distanceBetween;
+let position = startPosition + cubeNumber * distanceBetween;
 
 cube.position.x = position;
 ```
@@ -105,27 +103,27 @@ initAnalyser(function(a) {
   // When the initAnalyser function has connected to the microphone,
   // this code runs
 
-  // You will get a reference to the analyser as parameter
+  // You will get a reference to the analyser as parameter to the callback
   analyser = a;
 
   // You can then call the render function
-  // kickstarting your render loop as previous
+  // kickstarting your render loop as before
   render();
 });
 ```
 
-> If you want to know more about how this microphone module works, you can scroll down to find a commented version of the source code.
+> If you want to know more about how this microphone module works, you can scroll down to find an annotated version of the source code.
 
-The `analyser` object returned from `initAnalyser` has a neat method called `analyser.frequencies()`. It gives you a list of decibel values for all the different frequencies the microphone records. These frequencies are calculated using a Fast Fourier Transform (FFT), which in this case is a list of `32` decibel value representing each frequency.
+The `analyser` object returned from `initAnalyser` has a neat method called `analyser.frequencies()`. It gives you a list of decibel values for all the different frequencies the microphone records divided into a number of bins. The value of each bin is calculated using a Fast Fourier Transform (FFT), which in this case is set to divide the frequency range into `32` bins.
 
-You can also get the maximum and minimum values of the sound decibels like this:
+You can also get the maximum and minimum decibel your microphone can pick up like this:
 
 ```js
 const maxDecibels = analyser.analyser.maxDecibels;
 const minDecibels = analyser.analyser.minDecibels;
 ```
 
-> There are some quirks between different computer platforms. If you get very strange minimum and maximum values, it might be better to simply use `0` and `255`
+> There might be some quirks between different operating systems and runtimes. If you get very strange behavior, it might be better to simply use `0` and `255` as the min and max value.
 
 These values can be used to normalize the frequency values. Normalizing means to transform given a number range to a standard `[0, 1]` range.
 
