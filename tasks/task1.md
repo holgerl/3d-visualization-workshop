@@ -12,11 +12,12 @@ You'll find a lot of stuff in this project. Here is an overview:
 ├── slides/                     # The slides that the tutors will go through
 ├── solutions/                  # Suggested solutions to all the tasks
 ├── src/                        # This is where your code will be written!
-|   ├── fragmentshader.glsl     # (Used in later tasks)
-|   ├── index.html              # The HTML file that runs the code
-|   ├── index.js                # The JavaScript code you will write
-|   └── vertexshader.glsl       # (Used in later tasks)
-├── tasks/                      # The task assignement text
+│   ├── fragmentshader.glsl     # Shader-program used in task 3 & 4
+│   ├── index.html              # The HTML file that runs the code
+│   ├── index.js                # The JavaScript code you will write
+│   ├── lib                     # Some helper code
+│   └── vertexshader.glsl       # Shader-program used in task 3 & 4
+├── tasks/                      # The task descriptions
 ├── README.md                   # Readme for this workshop
 └── package.json                # Dependencies and build scripts
 ```
@@ -28,15 +29,17 @@ npm install
 npm start
 ```
 
-Then, open `http://localhost:9966` in your favorite web browser
+Then, open `http://localhost:9966` in your favorite web browser.
 
-You'll see the text `Velcome to the workshop` on the screen. Better open the developer tools (F12) right away so that you will see any error messages during the workshop.
+> It is important in later tasks that you use `localhost` instead of the IP of your local machine. It has to do with the MediaDevices API.
+
+You'll see the text `Welcome to the workshop` on the screen. Better open the developer tools (`F12` or `ctrl/cmd+shift+i`) right away so that you will see any error messages during the workshop.
 
 ## Writing code
 
 All code will go into the `index.js` file in the `src/` folder. Any updates saved to these files will trigger an automatic refresh in the browser, so you can see the effects right away.
 
-Note that we have purposely avoided using any web frameworks like React or Vue to keep things as simple as possible. We will be using pure and modern JavaScript.
+Note that we have purposely avoided using any web frameworks like React or Vue to keep things as simple as possible. We will be using plain JavaScript which will run in any modern browser.
 
 In `index.js` there is some simple boilerplate code:
 
@@ -49,7 +52,7 @@ function init() {
 }
 
 function render() {
-  // Make sure another call to this function is queued up for the browser to make (making it loop):
+  // Make sure another call to this function is queued up, making a render loop:
   requestAnimationFrame(render);
 
   // Here you'll put code that is run every "frame" in the loop
@@ -64,7 +67,11 @@ init();
 render();
 ```
 
-It is up to you how you structure your code. In this text there are many code snippets that illustrates how the `three.js` API is used, but where the function calls and variable declarations will go you have to figure out yourself. It is important to remember how scoping works in JavaScript if you have to use a variable several places. In a project of this size, the authors prefer a lot of global variables.
+We won't tell you exactly how to structure your code. We assume that you have some experience with JavaScript and know how variable scoping works and how to use functions to structure code.
+
+Most of the code in the task description is written to illustrate how a certain `three.js` API can be used, you will have to put it into your own codebase in accordance with your own structure.
+
+> The code in this workshop won't be very complex, so taking advantage of global variables can help you keep the function signatures simple.
 
 ## Make a `three.js` renderer, scene and camera
 
@@ -72,7 +79,7 @@ The first things you have to make to get started with `three.js` is:
 
 - a renderer to draw stuff on the screen
 - a scene that holds the elements to be drawn
-- a camera that controls what you "see" in the scene
+- a camera that determines which part of the scene is visible
 
 To make a renderer, use [`WebGLRenderer`](https://threejs.org/docs/index.html#api/renderers/WebGLRenderer) from `three.js`. If you don't pass any parameters, it will internally create a `canvas` element that will work as a context for your WebGL visualization.
 
@@ -107,7 +114,7 @@ scene = new THREE.Scene();
 
 Later, you will add object to that scene, but this will hold for now.
 
-Last, will make a camera to behold our scene. There exists multiple cameras with different properties, but for our purpose the [`PerspectiveCamera`](https://threejs.org/docs/index.html#api/cameras/PerspectiveCamera) will be excellent. It mimics the way the human eye works, and is easy to work with.
+Last, we will make a camera to behold our scene. There exists multiple cameras with different properties, but for our purpose the [`PerspectiveCamera`](https://threejs.org/docs/index.html#api/cameras/PerspectiveCamera) will be excellent. It mimics the way the human eye works, and is easy to work with.
 
 ```js
 let camera;
@@ -124,7 +131,7 @@ camera = new THREE.PerspectiveCamera(fov, WIDTH / HEIGHT, near, far);
 
 `fov` is usually a value between 0 and 90 degrees. For our purpose a value between 45 and 70 will look "normal". In contrast to almost all other angle values in WebGL, this is in degrees. Other angles will usually be expressed in radians.
 
-Yo'll notice that the camera is agnostic to resolution of the rendered image. That is a property of the renderer. The camera will use the field of view and aspect ratio for its projections, and then at the end the renderer will smear the pixels over the given resolution.
+You'll notice that the camera is agnostic to resolution of the rendered image. That is a property of the renderer. The camera will use the field of view and aspect ratio for its projections, and then at the end the renderer will smear the pixels over the given resolution.
 
 `near` and `far` controls which parts of the scene are ignored by the camera. This can speed things up if a lot of objects are too far away to make any difference. And it can avoid the entire screen being filled with an object that flows too close to the camera. For our purposes, the values `0.01` and `1000` will be suitable. This means that things between these values in the coordinate system will be visible.
 
@@ -136,13 +143,13 @@ Now that we have a scene and a camera, we can ask the renderer to draw things:
 renderer.render(scene, camera);
 ```
 
-There will not be a lot to see, because we don't have any objects in the scene. But if you get a black screen without errors, you have probably done everything correctly.
+There will not be a lot to see, because we don't have any objects in the scene. But if you get a black screen without errors in the devtools console, you have probably done everything correctly.
 
 ## Hello Cube!
 
 Our first task will be to get a cube up on the screen. The cube is an object, and most objects in `three.js` consist of a geometry and a material. The geometry defines the shape of the object, and the material defines the looks.
 
-The simplest object type is the `Mesh`](https://threejs.org/docs/index.html#api/objects/Mesh). It consists of lot of triangles; and as we know, WebGL loves triangles. We are going to use `Mesh` to make our cube.
+The simplest object type is the [`Mesh`](https://threejs.org/docs/index.html#api/objects/Mesh). It consists of lot of triangles; and as we know, WebGL loves triangles. We are going to use `Mesh` to make our cube.
 
 We need a geometry, and `three.js` has a neat class ready to use called [`BoxGeometry`](https://threejs.org/docs/#api/geometries/BoxGeometry). This class takes three values (height, width and depth) and returns a geometry representing a box with these dimensions. Play around with the parameters and see the results.
 
@@ -159,10 +166,9 @@ let material = new THREE.MeshNormalMaterial();
 We can now combine these three concepts and make a cube
 
 ```js
-function makeCube(height, width, depth) {
-  let geometry = new THREE.BoxGeometry(height, width, depth);
-  let material = new THREE.MeshNormalMaterial();
-  return new THREE.Mesh(geometry, material);
+let geometry = new THREE.BoxGeometry(height, width, depth);
+let material = new THREE.MeshNormalMaterial();
+let cube = THREE.Mesh(geometry, material);
 }
 ```
 
@@ -172,7 +178,7 @@ To actually be able to see the cube, we have to add it to the scene:
 scene.add(cube);
 ```
 
-But you will probably not see anything! This is because our camera is at the exact same position as the cube. Placing it inside it! If we move the camera back, we can see things properly:
+But you will probably not see anything! This is because our camera is at the exact same position as the cube. Meaning that the camera is inside the cube! If we move the camera back, we can see the cube properly:
 
 ```js
 camera.position.z = 5;
@@ -194,7 +200,7 @@ cube.rotation.z = 1.25;
 
 Now you will se that the cube has multiple faces and is actually a 3D object!
 
-We can take this a step further and let the cube rotate around by itself. To do this, we need to change the rotation a bit every frame and ask the renderer to draw the scene.
+We can take this a step further and let the cube rotate over time. To do this, we need to change the rotation a bit every frame and ask the renderer to draw the scene.
 
 ```js
 const SPEED = 0.01;
@@ -217,7 +223,7 @@ Congratulations, you now have spinning cube!
 Play around with the different values and see what happens with the cube. Be creative! Here are some suggestions:
 
 - Vary the rotational speed of each separate axis
-- Chane the size of the cube geometry
+- Change the dimensions of the cube geometry
 - Change the camera attributes (near, far, where ever you are 🎶)
 - Change the camera position
 - Can the camera also be rotated like the cube?
