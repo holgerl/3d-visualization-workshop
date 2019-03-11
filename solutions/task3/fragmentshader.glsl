@@ -1,7 +1,8 @@
-uniform float soundLevel;
+varying vec3 normalVec;
 
 void main() {
-  vec4 baseRed = vec4(1.0, 0.15, 0.15, 1.0);
-  float redness = soundLevel / 3000.0;
-  gl_FragColor = baseRed * (redness + 0.2);
+    vec3 color = 0.5 * normalVec + 0.5;
+    float alpha = 1.0;
+
+    gl_FragColor = vec4(color, alpha);
 }

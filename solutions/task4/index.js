@@ -1,6 +1,7 @@
 const THREE = require("three");
 const OrbitControls = require("three-orbit-controls")(THREE);
-const dat = require("dat.gui");
+const initAnalyser = require("../../src/lib/soundanalyser.js");
+
 const fs = require("fs");
 const vertexShaderCode = fs.readFileSync(
   `${__dirname}/vertexshader.glsl`,
@@ -11,35 +12,29 @@ const fragmentShaderCode = fs.readFileSync(
   "utf8"
 );
 
-let scene, camera, renderer;
-
-let sphere, displacement, noise;
+let scene, camera, renderer, analyser;
+let spheres, displacement, noise;
 
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 
-let params = {
-  noiseClamp: 5,
-  circleRadius: 10,
-  circleSegments: 128,
-  circleRings: 64
-};
+const NUM_SPHERES = 32;
 
 function init() {
   scene = new THREE.Scene();
 
   initCamera();
   initRenderer();
-  initSphere();
-  initDatGui();
+  initSpheres();
 
   document.body.appendChild(renderer.domElement);
+
+  renderer.render(scene, camera);
 }
 
 function initCamera() {
-  camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 0.01, 1000);
-  camera.position.set(0, 0, 50);
-  camera.lookAt(scene.position);
+  camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 0.1, 1000);
+  camera.position.z = 40;
 
   new OrbitControls(camera);
 }
@@ -47,73 +42,78 @@ function initCamera() {
 function initRenderer() {
   renderer = new THREE.WebGLRenderer();
   renderer.setSize(WIDTH, HEIGHT);
-  renderer.setPixelRatio(window.devicePixelRatio || 1);
 }
 
-function initSphere() {
-  let geometry = new THREE.SphereBufferGeometry(
-    params.circleRadius,
-    params.circleSegments,
-    params.circleRings
-  );
+function initSpheres() {
+  spheres = [];
 
-  displacement = new Float32Array(geometry.attributes.position.count);
-  noise = new Float32Array(displacement.length);
-  for (let i = 0; i < noise.length; i++) {
-    noise[i] = Math.random() * params.noiseClamp;
+  for (let i = 0; i < NUM_SPHERES; i++) {
+    let material = new THREE.ShaderMaterial({
+      vertexShader: vertexShaderCode,
+      fragmentShader: fragmentShaderCode
+    });
+    let geometry = new THREE.SphereBufferGeometry(1, 128, 64);
+    let displacement = new Float32Array(geometry.attributes.position.count);
+    let noise = new Float32Array(displacement.length);
+
+    for (let i = 0; i < noise.length; i++) {
+      noise[i] = Math.random() * 5;
+    }
+
+    geometry.addAttribute(
+      "displacement",
+      new THREE.BufferAttribute(displacement, 1)
+    );
+
+    let sphere = new THREE.Mesh(geometry, material);
+    let xPos = (i % (NUM_SPHERES / 4)) * 4 - 3.5 * 4;
+    let yPos = 0;
+    let zPos = Math.floor(i / (NUM_SPHERES / 4)) * 4 - 2 * 4;
+    sphere.position.set(xPos, yPos, zPos);
+
+    scene.add(sphere);
+    spheres.push([sphere, displacement, noise]);
   }
+}
 
-  geometry.addAttribute(
-    "displacement",
-    new THREE.BufferAttribute(displacement, 1)
-  );
+function normalise(min, max, v) {
+  return (v - min) / max;
+}
 
-  let material = new THREE.ShaderMaterial({
-    vertexShader: vertexShaderCode,
-    fragmentShader: fragmentShaderCode
+function dance() {
+  let min = 0;
+  let max = 255;
+  let frequencies = analyser.frequencies();
+
+  spheres.forEach(function(sphere, i) {
+    let f = normalise(min, max, frequencies[i]);
+
+    updateDisplacement(sphere, f);
   });
-
-  sphere = new THREE.Mesh(geometry, material);
-  scene.add(sphere);
 }
 
-function initDatGui() {
-  var gui = new dat.GUI();
-
-  gui.add(params, "noiseClamp", 0.0, 5.0, 0.25).onChange(updateParameters);
-  gui.add(params, "circleRadius", 1.0, 50.0, 1.0).onChange(updateParameters);
-  gui.add(params, "circleSegments", 3, 256, 1).onChange(updateParameters);
-  gui.add(params, "circleRings", 2, 128).onChange(updateParameters);
-}
-
-function updateParameters() {
-  scene.remove(sphere);
-  initSphere();
-}
-
-function updateDisplacement() {
+function updateDisplacement([sphere, displacement, noise], f) {
   let time = Date.now() * 0.01; // time in s;
-  for (var i = 0; i < displacement.length; i++) {
-    displacement[i] = Math.sin(0.1 * i + time);
+  for (let i = 0; i < displacement.length; i++) {
+    displacement[i] = f * Math.sin(0.1 * i + time);
 
     noise[i] += -0.5 + Math.random();
-    noise[i] = THREE.Math.clamp(
-      noise[i],
-      -params.noiseClamp,
-      params.noiseClamp
-    );
+    noise[i] = THREE.Math.clamp(noise[i], -f, f);
 
     displacement[i] += noise[i];
   }
+
   sphere.geometry.attributes.displacement.needsUpdate = true;
 }
 
 function render() {
   requestAnimationFrame(render);
-
-  updateDisplacement();
+  dance();
   renderer.render(scene, camera);
 }
 
 init();
-render();
+initAnalyser(function(a) {
+  analyser = a;
+  render();
+});

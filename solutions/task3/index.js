@@ -1,30 +1,31 @@
 const THREE = require("three");
 const OrbitControls = require("three-orbit-controls")(THREE);
-const analyse = require("./soundanalyser.js");
+const initAnalyser = require("../../src/lib/soundanalyser.js");
 
 const fs = require("fs");
+const vertexShaderCode = fs.readFileSync(
+  `${__dirname}/vertexshader.glsl`,
+  "utf8"
+);
 const fragmentShaderCode = fs.readFileSync(
-  __dirname + "/fragmentshader.glsl",
+  `${__dirname}/fragmentshader.glsl`,
   "utf8"
 );
 
-let scene, camera, renderer, cubes, analyser, soundLevel;
+let scene, camera, renderer, analyser;
+let spheres;
 
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 
-const NUM_CUBES = 32;
-
-const UNIFORMS = {
-  soundLevel: { value: 0.0 }
-};
+const NUM_SPHERES = 32;
 
 function init() {
   scene = new THREE.Scene();
 
-  initCubes();
   initCamera();
   initRenderer();
+  initSpheres();
 
   document.body.appendChild(renderer.domElement);
 
@@ -43,52 +44,51 @@ function initRenderer() {
   renderer.setSize(WIDTH, HEIGHT);
 }
 
-function initCubes() {
-  const material = new THREE.ShaderMaterial({
-    uniforms: UNIFORMS,
-    fragmentShader: fragmentShaderCode
-  });
+function initSpheres() {
+  spheres = [];
 
-  cubes = Array(NUM_CUBES)
-    .fill()
-    .map(function(_, i) {
-      let n = -1 * Math.floor(NUM_CUBES / 2) + i;
-      let cube = new THREE.Mesh(new THREE.CubeGeometry(1, 1, 1), material);
-      cube.position.set(n * 1 + n * 0.1, 0, 0);
-      scene.add(cube);
-
-      return cube;
+  for (let i = 0; i < NUM_SPHERES; i++) {
+    let material = new THREE.ShaderMaterial({
+      vertexShader: vertexShaderCode,
+      fragmentShader: fragmentShaderCode
     });
+    let geometry = new THREE.SphereGeometry(1, 128, 64);
+
+    let sphere = new THREE.Mesh(geometry, material);
+    let xPos = (i % (NUM_SPHERES / 4)) * 4 - 3.5 * 4;
+    let yPos = 0;
+    let zPos = Math.floor(i / (NUM_SPHERES / 4)) * 4 - 2 * 4;
+    sphere.position.set(xPos, yPos, zPos);
+
+    scene.add(sphere);
+    spheres.push(sphere);
+  }
 }
 
 function normalise(min, max, v) {
   return (v - min) / max;
 }
 
-function makeCubesDance() {
-  let min = analyser.analyser.minDecibels;
-  let max = analyser.analyser.maxDecibels;
+function dance() {
+  let min = 0;
+  let max = 255;
   let frequencies = analyser.frequencies();
-  cubes.forEach((c, i) =>
-    c.scale.set(1, normalise(min, max, frequencies[i]), 1)
-  );
 
-  let soundLevel = 0;
-  for (let i = 0; i < frequencies.length; i++) {
-    soundLevel = soundLevel += frequencies[i];
-  }
+  spheres.forEach(function(sphere, i) {
+    let f = 1 + normalise(min, max, frequencies[i]);
 
-  UNIFORMS.soundLevel.value = soundLevel;
+    sphere.scale.set(f, f, f);
+  });
 }
 
 function render() {
   requestAnimationFrame(render);
-  makeCubesDance();
+  dance();
   renderer.render(scene, camera);
 }
 
 init();
-analyse(function(a) {
+initAnalyser(function(a) {
   analyser = a;
   render();
 });
