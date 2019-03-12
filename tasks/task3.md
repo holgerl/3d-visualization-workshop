@@ -1,5 +1,9 @@
 # Task 3: Fragment shaders
 
+![Suggested solution task 3](./img/out1.gif)
+
+> This is just a suggestion. Your visualization might be very different, so just be creative!
+
 Up to this point we've been using `three.js` built-in shaders (`MeshNormalMaterial` is actually a shader program), but when we want to get creative or do just about anything really interesting we have to write our own shader programs.
 
 There are two kinds of shaders in WebGL, fragment and vertex, and they work together to calculate the value of all the pixels on the screen.

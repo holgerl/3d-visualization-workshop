@@ -1,5 +1,9 @@
 # Task 4: Vertex shaders
 
+![Suggested solution task 4](./img/out2.gif)
+
+> This is just a suggestion. Your visualization might be very different, so just be creative!
+
 Building on what we did with fragment shaders in the previous task, we will look at what we can do with vertex shaders.
 
 ## Before we start
