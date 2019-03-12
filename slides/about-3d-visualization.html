@@ -183,59 +183,55 @@ Viktige konsepter i 3D-visualisering
 
 -->
 
-Kurs i 3D-visualisering
+3D visualization Workshop
 =======================
 
 ●●●
 
 ### Holger Ludvigsen
+_Bekk Consulting AS_
 
 ### Stian Møllersen
-
-### Petter Astrup
-
-●●●
-
-## Bekk Consulting AS
+_NRK_
 
 ---
 
-To mål
-======
+Our goals
+========
 
-Forstå hvordan man lager 3D
+Gain understanding of how 3D is made
 
-Lage noe fett i 3D
+Make something cool in 3D
 
-En plan
-=======
+The plan for the day
+===================
 
-#### ● Dag 1 ●
+#### ● Part 1 ●
 
-Intro til 3D-visualisering
+Introduction to 3D visualization
 
-Intro til rammeverket three.js
+Introduction to the `three.js` framework
 
-Lage kule ting i 3D
+Make cool stuff in 3D
 
-#### ● Dag 2 ●
+#### ● Break ●
 
-Lage enda kulere ting
+#### ● Part 2 ●
 
-#### ● Dag 3 ●
+Introduction to advanced 3D with shader programming
 
-Være kreativ og lage særdeles kule ting
+Make _really_ cool stuff
 
 ---
 
-Hva er 3D-visualisering?
+What is 3D visualization?
 ========================
 
-_Lage et flatt bilde på skjermen,_
+_Make a flat image on the screen,_
 
-_av noe som ikke er flatt._
+_of something that is not flat_
 
-### Eksempler
+### Examples
 
 [World Flights](http://www.senchalabs.org/philogl/PhiloGL/examples/worldFlights/)
 
@@ -245,12 +241,12 @@ _av noe som ikke er flatt._
 
 ---
 
-3D-visualisering - Mer konkret
-========================
+3D visualization - The process in short
+==============================
 
-Starter med 3D-data: koordinater, vektorer, osv
+You begin with some 3D data: coordinates, vectors, and so on
 
-Ender opp med fargede piksler på skjermen
+You end up with colored pixels on the screen
 
 .lowerleft[![altxt](./img/face-wireframe.png)]
 .lowercenter[![altxt](./img/shading1.png)]
@@ -259,9 +255,9 @@ Ender opp med fargede piksler på skjermen
 ---
 
 .verticalCenter[
-### La oss forstå dette gjennom 
+### Let us understand this through
 
-# Noen viktige konsepter
+# Some important concepts
 ]
 
 ---
@@ -269,11 +265,11 @@ Ender opp med fargede piksler på skjermen
 Vertex
 ======
 
-En vertex er ytterpunktene på 3D-modellene
+A Vertex is a point on the surface of the 3D models
 
-Flertall: _Vertices_
+Plural: _Vertices_
 
-Koordinater i 3D-rommet
+They are coordinates in 3D space
 
 ```c
 0: [0.12,  2.15,  1.01]
@@ -291,9 +287,9 @@ Koordinater i 3D-rommet
 Face
 ====
 
-En face er en samling av 3 vertices
+A face is a collection of 3 vertices
 
-Utgjør en flat trekant
+They make up a flat triangle
 
 ```c
 0: [0, 1, 2]
@@ -313,20 +309,20 @@ Utgjør en flat trekant
 Geometry
 ========
 
-Geometri er en samling av vertex-liste og faces-liste
+A geometry is made up of a list of vertices and a list of faces
 
-Er kjent under mange navn! _Surface, mesh, model_
+Beware: It is known under many names in the literature! _Surface, mesh, model_
 
-Representerer tilsammen en 3D-form
+It represents a complete 3D shape
 
 ![altxt](./img/geometry.png)
 
 ---
 
-Material og shading
+Material and shading
 ===================
 
-Materialet og shadingen definerer fargen til hver piksel i et face
+The material and shading defines the color of each pixel in a face
 
 ```c
 color: [1.0, 0.5, 0.1]
@@ -340,12 +336,12 @@ texture: light-skin.png
 
 ---
 
-Kamera
+Camera
 ======
 
-Kamera er _"øyet som ser"_ i 3D-scenen
+The camera is the _"eye that sees"_ in the 3D scene
 
-Representerer på en måte skjermen
+In a way it represents the viewport into the scene
 
 ```c
 position: [5.0, 1.5, -5.0]
@@ -359,16 +355,16 @@ field-of-view: 45
 
 ---
 
-Lys
+Light
 ====
 
-Lys brukes sammen med materialet til å finne fargen til pikslene.
+Lights are used together with the material to calculate the exact pixel colors
 
-_Sterk lyskilde -> Lysere farge_
+_Strong light -> Brighter color_
 
-_Lys peker rett på facen -> Lysere farge_
+_Light pointing straight at the face_ -> _Brighter color_
 
-_Rødt lys -> Mer rødlig farge_
+_Light is red_ -> _Increase red in color_
 
 ```c
 position: [10.0, 2.0, -4.0]
@@ -384,9 +380,11 @@ color: [1.0, 1.0, 1.0]
 Scene graph
 ===========
 
-En scene graph er et hierarki av innholdet i 3D-scenen
+A scene graph is a hierarchy of all the scene contents
 
-Trestruktur av alt som har plassering i 3D-rommet
+It is a tree structure with everything that is positioned somewhere in 3D space
+
+This is very useful for manipulating and transforming things
 
 ![altxt](./img/scene-graph.png)
 
@@ -395,24 +393,24 @@ Trestruktur av alt som har plassering i 3D-rommet
 Rendering
 =========
 
-Rendering er hele prosessen å lage 2D-bildet <br/>av 3D-scenen og vise det på skjermen
+Rendering is the process of making a 2D image <br/>of the 3D scene and showing it on screen
 
-Gjøres f.eks. 60 ganger i sekundet
+This is typically done 60 times per second
 
-Mellom hver render kan man endre litt <br/>på scenen for å animere (tenk stop motion)
+Between each rendering, you can change <br/>a little bit of the scene to animate it (think stop motion)
 
 ![altxt](./img/rendering.gif)
 
 ---
 
-Mer om rendering
+More on rendering
 ================
 
-Rendering består av to steg:
+Rendering consists of two steps:
 
-**1: Projisering**: Beregn 2D-posisjonen på skjermen for alle vertices
+**1: Projection:** Calculate the 2D position on screen for all vertices
 
-**2: Rasterisering:** Fargelegg pikslene til hver face 
+**2: Rasterization:** Color each pixel on each face
 
 .bigger[.lowerleft[![altxt](./img/projection1.png)]]
 .smaller[.lowercenter[![altxt](./img/projection4.png)]]
@@ -423,13 +421,13 @@ Rendering består av to steg:
 Hardware
 ========
 
-I motsetning til hverdagslig programmering må vi forholde oss til hardwarens oppbygning.
+In contrast to our usual day job programming, <br/>we now have to really consider how the computer hardware works.
 
-#### Spesielt for _ytelse_
+#### Especially for gaining _performance_
 
-Tregt å sende data til GPU (60 fps)
+It is slow to pass data to the GPU (60 fps)
 
-GPU har massiv parallellitet
+The GPU is massively parallel
 
 .left7525[![altxt](./img/hardware.png)]
 .right7525[![altxt](./img/cpu-vs-gpu-vertical.png)]
