@@ -1,6 +1,6 @@
 # Bonus Task: `dat.gui`
 
-![dat.GUI](./bilder/dat.GUI.png)
+![dat.GUI](./img/dat.GUI.png)
 
 `dat.gui` is a handy little tool to put into creative sketch-programs. It gives you a little control panel which you can put arbitrary value inputs into. You can hook those inputs to parameters in your program and make it re-render when you alter any of them. So it gives you a very quick way to test various parameters in your running program.
 
