@@ -96,16 +96,16 @@
 three.js
 ================
 
-_Et rammeverk for å lage WebGL-ting._
+_A framework for making WebGL-things._
 
 ---
 .left-column[
   # three.js
 ]
 .right-column[
-  ## WebGL er veldig lavnivå
+  ## WebGL is very low level
 
-  For å lage en [snurrende kube](https://mdn.github.io/webgl-examples/tutorial/sample5/) trenger du ganske mye [kode](https://github.com/mdn/webgl-examples/blob/gh-pages/tutorial/sample5/webgl-demo.js)
+  To make a [spinning cube](https://mdn.github.io/webgl-examples/tutorial/sample5/) you'll need a lot of [code](https://github.com/mdn/webgl-examples/blob/gh-pages/tutorial/sample5/webgl-demo.js)
 ]
 
 ---
@@ -113,14 +113,14 @@ _Et rammeverk for å lage WebGL-ting._
   # three.js
 ]
 .right-column[
-  ## WebGL er veldig lavnivå
+  ## WebGL is very low level
 
-  For å lage en [snurrende kube](https://mdn.github.io/webgl-examples/tutorial/sample5/) trenger du ganske mye [kode](https://github.com/mdn/webgl-examples/blob/gh-pages/tutorial/sample5/webgl-demo.js)
+  To make a [spinning cube](https://mdn.github.io/webgl-examples/tutorial/sample5/) you'll need a lot of [code](https://github.com/mdn/webgl-examples/blob/gh-pages/tutorial/sample5/webgl-demo.js)
 ]
 .right-column[
-  ## three.js kommer med abstraksjoner 👌
+  ## three.js comes with abstractions 👌
 
-  Et nivå som ligger nærmere måten vi prater om 3D-verdenen på.
+  Gives us a vocabulary closer to the way we actually talk about 3D.
 ]
 
 ---
@@ -129,7 +129,7 @@ _Et rammeverk for å lage WebGL-ting._
   # Core
 ]
 .right-column[
-  ## Kjernekomponenter
+  ## Core components
   - Renderer
   - Scene
   - Camera
@@ -142,7 +142,7 @@ _Et rammeverk for å lage WebGL-ting._
 ]
 .right-column[
   ## Renderer
-  Three.js kommer med mange ulike måter å rendre på, men den vi skal bry oss om er WebGL rendereren
+  Three.js comes with different ways to render. The one we care about right now is the WebGL renderer.
 ]
 
 ---
@@ -152,7 +152,7 @@ _Et rammeverk for å lage WebGL-ting._
 ]
 .right-column[
   ## Renderer
-  Three.js kommer med mange ulike måter å rendre på, men den vi skal bry oss om er WebGL rendereren
+  Three.js comes with different ways to render. The one we care about right now is the WebGL renderer.
 ]
 .right-column[
   ```js
@@ -168,7 +168,7 @@ renderer.setSize(HEIGHT,WIDTH);
 ]
 .right-column[
   ## Renderer
-  Three.js kommer med mange ulike måter å rendre på, men den vi skal bry oss om er WebGL rendereren
+  Three.js comes with different ways to render. The one we care about right now is the WebGL renderer.
 ]
 .right-column[
   ```js
@@ -177,7 +177,7 @@ renderer.setSize(HEIGHT,WIDTH);
   ```
 ]
 .right-column[
-  Three.js har også CSS2D/3DRenderer, CanvasRenderer og SVGRenderer
+  Three.js can also render to Canvas and SVG. Used to have a CSS-renderer, but it has been discontinued.
 ]
 ---
 .left-column[
@@ -186,7 +186,7 @@ renderer.setSize(HEIGHT,WIDTH);
 ]
 .right-column[
   ## Scene
-  For at en renderer skal ha noe å tegne trenger den en scene.
+  For a renderer to have something to draw, it needs a scene.
 ]
 ---
 .left-column[
@@ -195,7 +195,7 @@ renderer.setSize(HEIGHT,WIDTH);
 ]
 .right-column[
   ## Scene
-  For at en renderer skal ha noe å tegne trenger den en scene.
+  For a renderer to have something to draw, it needs a scene.
 ]
 .right-column[
   ```js
@@ -211,7 +211,7 @@ scene.add(someObject);
 ]
 .right-column[
   ## Scene
-  For at en renderer skal ha noe å tegne trenger den en scene.
+  For a renderer to have something to draw, it needs a scene.
 ]
 .right-column[
   ```js
@@ -231,7 +231,7 @@ scene.add(teapot);
 ]
 .right-column[
   ## Camera
-  For å komplettere 3D-opplevelsen trenger rendereren også noe som kan se på scena: et kamera.
+  To complete the 3D-experience, the renderer also needs something to view the scene: a camera.
 ]
 ---
 .left-column[
@@ -240,10 +240,10 @@ scene.add(teapot);
 ]
 .right-column[
   ## Camera
-  For å komplettere 3D-opplevelsen trenger rendereren også noe som kan se på scena: et kamera.
+  To complete the 3D-experience, the renderer also needs something to view the scene: a camera.
 ]
 .right-column[
-  Kameraet bestemmer hvordan 3D-verdenen blir projisert på skjermen.
+  The camera determines how the 3D-scene gets projected to the 2D screen.
 ]
 
 ---
@@ -253,13 +253,13 @@ scene.add(teapot);
 ]
 .right-column[
   ## Camera
-  For å komplettere 3D-opplevelsen trenger rendereren også noe som kan se på scena: et kamera.
+  To complete the 3D-experience, the renderer also needs something to view the scene: a camera.
 ]
 .right-column[
-  Kameraet bestemmer hvordan 3D-verdenen blir projisert på skjermen.
+  The camera determines how the 3D-scene gets projected to the 2D screen.
 ]
 .right-column[
-  Det finnes mange ulike kamera i three.js, vi kommer til å bruke et som heter `PerspectiveCamera`
+  There are different camera models that we can use with three.js, we will concentrate on the model called `PerspectiveCamera`
 ]
 
 ---
@@ -269,13 +269,13 @@ scene.add(teapot);
 ]
 .right-column[
   ## Camera
-  For å komplettere 3D-opplevelsen trenger rendereren også noe som kan se på scena: et kamera.
+  To complete the 3D-experience, the renderer also needs something to view the scene: a camera.
 ]
 .right-column[
-  Kameraet bestemmer hvordan 3D-verdenen blir projisert på skjermen.
+  The camera determines how the 3D-scene gets projected to the 2D screen.
 ]
 .right-column[
-  Det finnes mange ulike kamera i three.js, vi kommer til å bruke et som heter `PerspectiveCamera`
+  There are different camera models that we can use with three.js, we will concentrate on the model called `PerspectiveCamera`
 ]
 .right-column[
   ```js
@@ -293,8 +293,8 @@ camera = new THREE.PerspectiveCamera(
   # Core
 ]
 .right-column[
-  ## Alt klart
-  Når vi har disse tre tingene kan vi rendre en vilkårlig 3D-verden:
+  ## All ready to go
+  When we have these three things we can render any 3D world:
 ]
 
 ---
@@ -303,8 +303,8 @@ camera = new THREE.PerspectiveCamera(
   # Core
 ]
 .right-column[
-  ## Alt klart
-  Når vi har disse tre tingene kan vi rendre en vilkårlig 3D-verden:
+  ## All ready to go
+  When we have these three things we can render any 3D world:
 ]
 .right-column[
   ```js
@@ -317,8 +317,8 @@ renderer.render(scene, camera);
   # Core
 ]
 .right-column[
-  ## Alt klart
-  Når vi har disse tre tingene kan vi rendre en vilkårlig 3D-verden:
+  ## All ready to go
+  When we have these three things we can render any 3D world:
 ]
 .right-column[
   ```js
@@ -326,7 +326,7 @@ renderer.render(scene, camera);
   ```
 ]
 .right-column[
-  Når vi har dette på plass vil resten gå ut på å legge til objekter til scena slik at rendereren kan rendre det til skjermen.
+  When we have this in place, the rest of the job becomes adding objects to the scene so that the renderer can render it to the screen.
 ]
 
 ---
@@ -336,12 +336,12 @@ renderer.render(scene, camera);
   # Objects
 ]
 .right-column[
-  ## Fellestrekk
+  ## Commonalities
 
-  I three.js har alle objekter noen fellestrekk
+  In three.js, all objects have some things in common
 
-  - Posisjon
-  - Rotasjon
+  - Position
+  - Rotation
   - Scale
   - Children
 ]
@@ -352,17 +352,17 @@ renderer.render(scene, camera);
   # Objects
 ]
 .right-column[
-  ## Fellestrekk
+  ## Commonalities
 
-  I three.js har alle objekter noen fellestrekk
+  In three.js, all objects have some things in common
 
-  - Posisjon
-  - Rotasjon
+  - Position
+  - Rotation
   - Scale
   - Children
 ]
 .right-column[
-  (... og en del andre ting som er litt mer nisje)
+  (... and some other things, which are more niche)
 ]
 ---
 .left-column[
@@ -371,8 +371,8 @@ renderer.render(scene, camera);
   # Objects
 ]
 .right-column[
-  ## Spesialobjekter
-  I tillegg til en del spesialobjekter (som feks scene, camera og lights) har three.js en rekke generiske objekter
+  ## Special objects
+  In addition to special objects, like a scene, a camera, and lights, three.js has many generic objects
 ]
 ---
 .left-column[
@@ -381,22 +381,12 @@ renderer.render(scene, camera);
   # Objects
 ]
 .right-column[
-  ## Spesialobjekter
-  I tillegg til en del spesialobjekter (som feks scene, camera og lights) har three.js en rekke generiske objekter.
+  ## Special objects
+  In addition to special objects, like a scene, a camera, and lights, three.js has many generic objects
 ]
 .right-column[
-  ## Generiske objekter
-  Generiske objekter kan lages ved å kombinere en _geometri_ og et _materiale_.
-]
----
-.left-column[
-  # three.js
-  # Core
-  # Objects
-]
-.right-column[
-  ## Geometries
-  Geometrier er three.js sin måte å representere form på.
+  ## Generic objects
+  Generic objects can be made by combining a _geometry_ and a _material_.
 ]
 ---
 .left-column[
@@ -406,10 +396,21 @@ renderer.render(scene, camera);
 ]
 .right-column[
   ## Geometries
-  Geometrier er three.js sin måte å representere form på.
+  Geometries are three.js' way to represent form.
+]
+---
+.left-column[
+  # three.js
+  # Core
+  # Objects
+]
+.right-column[
+  ## Geometries
+  Geometries are three.js' way to represent form.
 ]
 .right-column[
   Det finnes mange ulike geometrier innebygd:
+  There are many built-in geometries
   - Box
   - Circle
   - Cone
@@ -425,10 +426,11 @@ renderer.render(scene, camera);
 ]
 .right-column[
   ## Geometries
-  Geometrier er three.js sin måte å representere form på.
+  Geometries are three.js' way to represent form.
 ]
 .right-column[
   Det finnes mange ulike geometrier innebygd:
+  There are many built-in geometries
   - Box
   - Circle
   - Cone
@@ -449,10 +451,11 @@ geometry = new THREE.BoxGeometry(1, 1, 1);
 ]
 .right-column[
   ## Geometries
-  Geometrier er three.js sin måte å representere form på.
+  Geometries are three.js' way to represent form.
 ]
 .right-column[
   Det finnes mange ulike geometrier innebygd:
+  There are many built-in geometries
   - Box
   - Circle
   - Cone
@@ -466,7 +469,7 @@ geometry = new THREE.BoxGeometry(1, 1, 1);
 ```
 ]
 .right-column[
-  De fleste 3D-former har en geometri-funksjon i three.js
+  Most 3D-shapes have a corresponding geometry-function in three.js
 ]
 ---
 .left-column[
@@ -476,7 +479,7 @@ geometry = new THREE.BoxGeometry(1, 1, 1);
 ]
 .right-column[
   ## Materials
-  Materialer i three.js er måten objekter får utseende.
+  Materials in three.js determines the way objects appear.
 ]
 ---
 .left-column[
@@ -486,10 +489,10 @@ geometry = new THREE.BoxGeometry(1, 1, 1);
 ]
 .right-column[
   ## Materials
-  Materialer i three.js er måten objekter får utseende.
+  Materials in three.js determines the way objects appear.
 ]
 .right-column[
-  Ulike materialer har ulike egenskaper og interaksjoner med andre objekter.
+  Different materials have different attributes and interactions with other objects.
 ]
 ---
 .left-column[
@@ -499,13 +502,13 @@ geometry = new THREE.BoxGeometry(1, 1, 1);
 ]
 .right-column[
   ## Materials
-  Materialer i three.js er måten objekter får utseende.
+  Materials in three.js determines the way objects appear.
 ]
 .right-column[
-  Ulike materialer har ulike egenskaper og interaksjoner med andre objekter.
+  Different materials have different attributes and interactions with other objects.
 ]
 .right-column[
-Det finnes egne materialer for spesielle lysmodeller eller materialer som bruker custom shadere.
+  There are materials for special ligthing models or materials that run custom shaders.
 ]
 ---
 .left-column[
@@ -515,13 +518,13 @@ Det finnes egne materialer for spesielle lysmodeller eller materialer som bruker
 ]
 .right-column[
   ## Materials
-  Materialer i three.js er måten objekter får utseende.
+  Materials in three.js determines the way objects appear.
 ]
 .right-column[
-  Ulike materialer har ulike egenskaper og interaksjoner med andre objekter.
+  Different materials have different attributes and interactions with other objects.
 ]
 .right-column[
-Det finnes egne materialer for spesielle lysmodeller eller materialer som bruker custom shadere.
+  There are materials for special ligthing models or materials that run custom shaders.
 ]
 .right-column[
   ```js
@@ -536,7 +539,7 @@ material = new THREE.MeshBasicMaterial({color: 0xFF0000});
 ]
 .right-column[
   ## Objects
-  Når du har en geometri og et materiale kan du lage et objekt.
+  When you have a geometry and a material you can construct an object.
 ]
 ---
 .left-column[
@@ -546,10 +549,10 @@ material = new THREE.MeshBasicMaterial({color: 0xFF0000});
 ]
 .right-column[
   ## Objects
-  Når du har en geometri og et materiale kan du lage et objekt.
+  When you have a geometry and a material you can construct an object.
 ]
 .right-column[
-  Det finnes også ulike objekt-typer, men den vanligste er Mesh:
+  There are also different object types. The most common one is the Mesh object:
 ]
 ---
 .left-column[
@@ -562,7 +565,7 @@ material = new THREE.MeshBasicMaterial({color: 0xFF0000});
   Når du har en _geometri_ og et _materiale_ kan du lage et objekt.
 ]
 .right-column[
-  Det finnes også ulike objekt-typer, men den vanligste er Mesh:
+  There are also different object types. The most common one is the Mesh object:
 ]
 .right-column[
   ```js
@@ -578,9 +581,9 @@ scene.add(object);
   # Extra
 ]
 .right-column[
-  ## Ekstrastasj
+  ## Extra stuff
 
-  thee.js inneholder en del ekstrastasj
+  three.js also contains some extra stuff.
 ]
 ---
 .left-column[
@@ -590,15 +593,15 @@ scene.add(object);
   # Extra
 ]
 .right-column[
-  ## Ekstrastasj
+  ## Extra stuff
 
-  thee.js inneholder en del ekstrastasj
+  three.js also contains some extra stuff.
 ]
 .right-column[
-- lys
+- lights
 - loaders
-- animasjon
-- mattefunksjoner
+- animation
+- math functions
 - etc...
 ]
 ---
@@ -607,12 +610,12 @@ scene.add(object);
   # Core
   # Objects
   # Extra
-  # Animering
+  # Animation
 ]
 .right-column[
-  ## Endre på ting
+  ## Changing things
 
-  Det er kjedelig å bare lage statiske modeller.
+  Only making static models can get boring.
 ]
 ---
 .left-column[
@@ -620,15 +623,15 @@ scene.add(object);
   # Core
   # Objects
   # Extra
-  # Animering
+  # Animation
 ]
 .right-column[
-  ## Endre på ting
+  ## Changing things
 
-  Det er kjedelig å bare lage statiske modeller.
+  Only making static models can get boring.
 ]
 .right-column[
-  Heldigvis har three.js støtte for å endre på ting.
+  Fortunatly, three.js has support for changing things.
 ]
 ---
 .left-column[
@@ -636,22 +639,22 @@ scene.add(object);
   # Core
   # Objects
   # Extra
-  # Animering
+  # Animation
 ]
 .right-column[
-  ## Endre på ting
+  ## Changing things
 
-  Det er kjedelig å bare lage statiske modeller.
+  Only making static models can get boring.
 ]
 .right-column[
-  Heldigvis har three.js støtte for å endre på ting.
+  Fortunatly, three.js has support for changing things.
 ]
 .right-column[
 ```js
 renderer.render(scene, camera);
 cube.position.x = 10;
 renderer.render(scene, camera);
-// hurra, cube har flyttet seg 10 langs x-aksen
+// the cube has moved 10 along the x-axis
 ```
 ]
 ---
@@ -660,12 +663,12 @@ renderer.render(scene, camera);
   # Core
   # Objects
   # Extra
-  # Animering
+  # Animation
 ]
 .right-column[
-  ## JavaScript animasjon
+  ## JavaScript animation
 
-  Fordi objects i three.js er "vanlig" JS, kan vi bruke vanlige JS-teknikker for å animere
+  Because the objects in three.js exist in the JS-world, we can use well-known JS-techniques to animate things.
 ]
 ---
 .left-column[
@@ -673,12 +676,12 @@ renderer.render(scene, camera);
   # Core
   # Objects
   # Extra
-  # Animering
+  # Animation
 ]
 .right-column[
-  ## JavaScript animasjon
+  ## JavaScript animation
 
-  Fordi objects i three.js er "vanlig" JS, kan vi bruke vanlige JS-teknikker for å animere
+  Because the objects in three.js exist in the JS-world, we can use well-known JS-techniques to animate things.
 ]
 .right-column[
 ```js
@@ -697,13 +700,13 @@ function render() {
   # Core
   # Objects
   # Extra
-  # Animering
+  # Animation
   # Boilerplate
 ]
 .right-column[
-  ## Utdelt kode
+  ## Workshop materials
 
-  Dere får en veldig liten kodesnutt utdelt som dere kan bruke som utgangspunkt for oppgavene dere skal gjennom i dag.
+  When you start programming, you will be given a small boilerplate to use as a starting point.
 ]
 ---
 .left-column[
@@ -711,31 +714,31 @@ function render() {
   # Core
   # Objects
   # Extra
-  # Animering
+  # Animation
   # Boilerplate
 ]
 .right-column[
-  ## Utdelt kode
+  ## Workshop materials
 
-  Dere får en veldig liten kodesnutt utdelt som dere kan bruke som utgangspunkt for oppgavene dere skal gjennom i dag.
+  When you start programming, you will be given a small boilerplate to use as a starting point.
 ]
 .right-column[
   ```js
-// Henter inn three.js
+// Load three.js
 const THREE = require("three");
 
 function init() {
-  // Her kan du putte kode som bare skal gjøres én gang
+  // Here you can put code that only needs to run once
 }
 
 
 function render() {
-  // sørger for å køe et nytt kall til render
+  // Queue a new call to render, making a loop
   requestAnimationFrame(render);
 
-  // Her kan du putte kode som skal gjøres hver "frame",
-  // som feks renderer.render();
-  // eller box.position.x += 10
+  // Here you can put the code that calculates the new "frame"
+  // Like box.position += 10
+  // and a call to renderer.render();
 }
 
 init();
@@ -743,9 +746,9 @@ render();
   ```
 ]
 ---
-# Oppgavetid!
+# Time to code!
 
-Oppgavene finner dere på [github.com/bekk/3d-visualisering-kursserie](https://github.com/bekk/3d-visualisering-kursserie)
+You will find the task descriptions on [github.com/holgerl/3d-visualization-workshop](https://github.com/holgerl/3d-visualization workshop)
 
 .full[
 ![altxt](./img/lastned.png)
