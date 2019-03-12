@@ -32,6 +32,8 @@ Tasks:
 
 ## Electives
 
+> NB: None of the electives have been translated to English yet, sorry about that.
+
 In the `electives`-folder you will find additional tasks. These were made for another longer version of this workshop. Should you complete the material and still have time left or simply wish to explore more on your own, feel free to give them a go.
 
 To start an elective:
@@ -43,8 +45,6 @@ To view the solution to an elective:
 ```sh
 npm run solution:[name of elective]
 ```
-
-> NB: Not all of the electives have been translated to English
 
 ## History
 
