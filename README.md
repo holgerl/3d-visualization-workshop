@@ -48,4 +48,4 @@ npm run solution:[name of elective]
 
 ## History
 
-This workshop came together as a 3-part workshop series developed by @holgerl, @mollerse and @petteas for a Bekk-hosted event for students at NTNU. The original version in Norwegian can be found at [bekk/3d-visualisering-kursserie](http://github.com/bekk/3d-visualisering-kursserie).
+This workshop came together as a 3-part workshop series developed by [@holgerl](https://github.com/holgerl), [@mollerse](https://github.com/mollerse) and [@petteas](https://github.com/petteas) for a Bekk-hosted event for students at NTNU. The original version in Norwegian can be found at [bekk/3d-visualisering-kursserie](http://github.com/bekk/3d-visualisering-kursserie).
