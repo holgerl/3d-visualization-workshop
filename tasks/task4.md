@@ -16,15 +16,15 @@ Vertex shaders are responsible for placing every vertex in a geometry at its des
 
 The main responsibility of a vertex shader is to convert (or project) the model coordinate space into the coordinate space of the screen. This is usually done in three steps:
 
-1) Get the position of the vertex in the model coordinate space.
+- *1:* Get the position of the vertex in the model coordinate space.
 
   This position is usually given as a uniform. In `three.js` it is provided for us by the framework.
 
-2) Project the model space coordinates into a common world space.
+- *2:* Project the model space coordinates into a common world space.
 
   This is done by using a modelViewMatrix and matrix multiplication. `three.js` provides a uniform containing the modelViewMatrix for this particular geometry.
 
-3) Project the world space coordinates into screen space.
+- *3:* Project the world space coordinates into screen space.
 
   This is also done with a matrix. `three.js` provides a `projectionMatrix` as a uniform, same as with the `modelViewMatrix`.
 
