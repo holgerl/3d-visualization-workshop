@@ -60,10 +60,9 @@ function initSpheres() {
     });
     let geometry = new THREE.SphereBufferGeometry(1, 128, 64);
     let displacement = new Float32Array(geometry.attributes.position.count);
-    let noise = new Float32Array(displacement.length);
 
-    for (let i = 0; i < noise.length; i++) {
-      noise[i] = Math.random() * 5;
+    for (let i = 0; i < displacement.length; i++) {
+      displacement[i] = Math.random();
     }
 
     geometry.addAttribute(
@@ -78,7 +77,7 @@ function initSpheres() {
     sphere.position.set(xPos, yPos, zPos);
 
     scene.add(sphere);
-    spheres.push([sphere, displacement, noise]);
+    spheres.push(sphere);
   }
 }
 
@@ -99,18 +98,15 @@ function dance() {
   UNIFORMS.time.value = (Date.now() * 0.01) - t0; // time in seconds
 }
 
-function updateDisplacement([sphere, displacement, noise], f) {
+function updateDisplacement(sphere, f) {
   let time = Date.now() * 0.01; // time in s;
-  for (let i = 0; i < displacement.length; i++) {
-    displacement[i] = f * Math.sin(0.1 * i + time);
+  let displacement = sphere.geometry.attributes.displacement;
 
-    noise[i] += -0.5 + Math.random();
-    noise[i] = THREE.Math.clamp(noise[i], -f, f);
-
-    displacement[i] += noise[i];
+  for (let i = 0; i < displacement.count; i++) {
+    displacement.array[i] = f * Math.sin(0.1 * i + time);
   }
 
-  sphere.geometry.attributes.displacement.needsUpdate = true;
+  displacement.needsUpdate = true;
 }
 
 function render() {
