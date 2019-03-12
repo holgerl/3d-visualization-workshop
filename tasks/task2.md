@@ -128,8 +128,8 @@ const minDecibels = analyser.analyser.minDecibels;
 These values can be used to normalize the frequency values. Normalizing means to transform given a number range to a standard `[0, 1]` range.
 
 ```js
-function normalise(min, max, value) {
-  return (value - min) / max;
+function normalize(min, max, value) {
+  return (value - min) / (max - min);
 }
 ```
 

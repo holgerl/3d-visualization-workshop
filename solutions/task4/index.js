@@ -76,8 +76,8 @@ function initSpheres() {
   }
 }
 
-function normalise(min, max, v) {
-  return (v - min) / max;
+function normalize(min, max, v) {
+  return (v - min) / (max - min);
 }
 
 function dance() {
@@ -86,7 +86,7 @@ function dance() {
   let frequencies = analyser.frequencies();
 
   spheres.forEach(function(sphere, i) {
-    let f = normalise(min, max, frequencies[i]);
+    let f = normalize(min, max, frequencies[i]);
 
     updateDisplacement(sphere, f);
   });

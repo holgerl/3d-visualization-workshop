@@ -50,8 +50,8 @@ function initCubes() {
   }
 }
 
-function normalise(min, max, v) {
-  return (v - min) / max;
+function normalize(min, max, v) {
+  return (v - min) / (max - min);
 }
 
 function dance() {
@@ -59,7 +59,7 @@ function dance() {
   let max = 255;
   let frequencies = analyser.frequencies();
   cubes.forEach((cube, i) =>
-    cube.scale.set(1, 1 + normalise(min, max, frequencies[i]), 1)
+    cube.scale.set(1, 1 + normalize(min, max, frequencies[i]), 1)
   );
 }
 
