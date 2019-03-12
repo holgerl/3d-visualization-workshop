@@ -51,15 +51,15 @@ function initRenderer() {
 function initCubes() {
   cubes = [];
 
-  let geometry = new THREE.CubeGeometry(1, 1, 1);
-  let material = new THREE.ShaderMaterial({
-    vertexShader: vertexShaderCode,
-    fragmentShader: fragmentShaderCode,
-    transparent: true,
-    uniforms: UNIFORMS
-  });
-
   for (let i = 0; i < NUM_CUBES; i++) {
+    let geometry = new THREE.CubeGeometry(1, 1, 1);
+    let material = new THREE.ShaderMaterial({
+      vertexShader: vertexShaderCode,
+      fragmentShader: fragmentShaderCode,
+      transparent: true,
+      uniforms: UNIFORMS
+    });
+
     let n = i - Math.floor(NUM_CUBES / 2);
     let cube = new THREE.Mesh(geometry, material);
 
