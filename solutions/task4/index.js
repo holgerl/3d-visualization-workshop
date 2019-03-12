@@ -12,20 +12,24 @@ const fragmentShaderCode = fs.readFileSync(
   "utf8"
 );
 
-let scene, camera, renderer, analyser;
-let spheres, displacement, noise;
+let scene, camera, renderer, analyser, spheres, t0, displacement, noise;
 
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 
 const NUM_SPHERES = 32;
 
+const UNIFORMS = {
+  time: { value: 0.0 }
+};
+
 function init() {
   scene = new THREE.Scene();
+  t0 = Date.now() * 0.01;
 
+  initSpheres();
   initCamera();
   initRenderer();
-  initSpheres();
 
   document.body.appendChild(renderer.domElement);
 
@@ -50,7 +54,9 @@ function initSpheres() {
   for (let i = 0; i < NUM_SPHERES; i++) {
     let material = new THREE.ShaderMaterial({
       vertexShader: vertexShaderCode,
-      fragmentShader: fragmentShaderCode
+      fragmentShader: fragmentShaderCode,
+      transparent: true,
+      uniforms: UNIFORMS
     });
     let geometry = new THREE.SphereBufferGeometry(1, 128, 64);
     let displacement = new Float32Array(geometry.attributes.position.count);
@@ -90,6 +96,7 @@ function dance() {
 
     updateDisplacement(sphere, f);
   });
+  UNIFORMS.time.value = (Date.now() * 0.01) - t0; // time in seconds
 }
 
 function updateDisplacement([sphere, displacement, noise], f) {
