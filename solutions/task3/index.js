@@ -12,15 +12,20 @@ const fragmentShaderCode = fs.readFileSync(
   "utf8"
 );
 
-let scene, camera, renderer, cubes, analyser;
+let scene, camera, renderer, cubes, analyser, t0;
 
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 
 const NUM_CUBES = 32;
 
+const UNIFORMS = {
+  time: { value: 0.0 }
+};
+
 function init() {
   scene = new THREE.Scene();
+  t0 = Date.now() * 0.01;
 
   initCubes();
   initCamera();
@@ -49,7 +54,9 @@ function initCubes() {
   let geometry = new THREE.CubeGeometry(1, 1, 1);
   let material = new THREE.ShaderMaterial({
     vertexShader: vertexShaderCode,
-    fragmentShader: fragmentShaderCode
+    fragmentShader: fragmentShaderCode,
+    transparent: true,
+    uniforms: UNIFORMS
   });
 
   for (let i = 0; i < NUM_CUBES; i++) {
@@ -74,6 +81,7 @@ function dance() {
   cubes.forEach((cube, i) =>
     cube.scale.set(1, 1 + normalize(min, max, frequencies[i]), 1)
   );
+  UNIFORMS.time.value = (Date.now() * 0.01) - t0; // time in seconds
 }
 
 function render() {

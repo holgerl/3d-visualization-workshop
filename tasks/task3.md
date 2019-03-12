@@ -26,7 +26,7 @@ The shader programs are part of a rendering pipeline. The first step in the pipe
 
 In addition to vertices and faces, we can pass other kinds of data from our JS program to the GPU. Because the data is going into a GLSL-program, only datatypes compatible with GLSL can be passed. This means numbers, vectors, arrays and other primitives.
 
-There are two ways to pass data into a shader: Uniforms and Attributes. In addition we can pass data between the vertex shader and the fragment shader using something called a Varying.
+There are two ways to pass data into a shader: Uniforms and Attributes. In addition we can pass data between the vertex shader and the fragment shader using something called a Varying. This makes a total of three kinds of values available in shaders.
 
 We'll get into Attributes in the next task, so for now we'll focus on Uniforms and Varyings.
 
@@ -101,7 +101,7 @@ float f = sin(0.5); // sine
 float g = pow(2.0, 8.0); // 2^8
 ```
 
-You will find most mathematical operations built into glsl. For a handy reference, look at [Shaderific](http://www.shaderific.com/glsl-functions/).
+You will find most mathematical operations built into glsl. A handy reference of all built-in functions can be found at [Shaderific](http://www.shaderific.com/glsl-functions/).
 
 ## `fragmentshader.glsl`
 
@@ -120,7 +120,7 @@ Every shader program has a main function, which works as the entry point for the
 
 A `gl_FragColor` is a 4-dimensional vector containing the RGB-values and the alpha value of the color you want. You can try to tweak the numbers and observe how the output on the screen changes.
 
-If you change the alpha-value, you will have to tell `three.js` that you have a transparent material. Default all materials are fully opaque, due to performance.
+Let's try to change the alpha-value. But first, you will have to tell `three.js` that you have a transparent material. By default all materials are fully opaque, due to performance.
 
 ```js
 new THREE.ShaderMaterial({
@@ -129,7 +129,106 @@ new THREE.ShaderMaterial({
 });
 ```
 
-When you have a feel for how the fragment shader program works, we will try to recreate the functionality of the `MeshNormalMaterial` we used in the previous tasks.
+You can now change the alpha value in your shader and see the cubes turn transparent.
+
+## Sending data to the shader
+
+Now that we have a basic handle on how shaders work, let's try to pass some data into the shader. We are going to pass the current time of the animation into the shader. To do this we first have to record the current time when starting the program.
+
+```js
+let t0;
+
+t0 = Date.now() * 0.01 // Current time in seconds
+```
+
+The `Date.now()`-function gives us the current time in milliseconds, so we multiply by `0.01` to get it in seconds. Now we can calculate how many seconds have passed since starting the program in our render-loop by recording a new timestamp and subtracting the initial time.
+
+```js
+let currentTime = (Date.now() * 0.01) - t0;
+```
+
+In order to send this information into the shader we need to declare a uniform. We do this by making an object that can hold the uniforms.
+
+```js
+let UNIFORMS = {
+  time: { value: 0.0, type: 'float' }
+}
+```
+
+We need to define the value of the uniform like this, because it will get translated into a glsl-value and glsl needs to know what kind of number we have.
+
+We then pass that data to the shader material, letting WebGL know that we have some uniforms.
+
+```diff
+let material = new THREE.ShaderMaterial({
+  vertexShader: vertexShaderCode,
+  fragmentShader: fragmentShaderCode,
+-  transparent: true
++  transparent: true,
++  uniforms: UNIFORMS
+});
+```
+
+We can now access the uniform in our shader:
+
+`fragmentshader.glsl`:
+```diff
++uniform float time;
+
+void main() {
+  vec3 color = vec3(1.0, 1.0, 1.0);
+-  float alpha = 1.0;
++  float alpha = sin(time);
+
+  gl_FragColor = vec4(color, alpha);
+}
+```
+
+Currently, everything will be black, since `sin(0.0)` is `0` giving us a fully transparent material. What we need to do is to change the value of the uniform each render.
+
+```js
+UNIFORMS.time.value = currentTime;
+```
+
+Doing this will give the uniform a new value each render, making the material blink quickly.
+
+To slow down the blinking, we can multiply time by `0.1`.
+
+`fragmentshader.glsl`:
+```diff
+uniform float time;
+
+void main() {
+  vec3 color = vec3(1.0, 1.0, 1.0);
+-  float alpha = sin(time);
++  float alpha = sin(0.1 * time);
+
+  gl_FragColor = vec4(color, alpha);
+}
+```
+
+We still have the issue of sine oscillating between -1 and 1, spending about half the time below zero making the material fully transparent. We can make it oscillate between 0 and 1 instead, by applying the same trick we used to normalize the sound level.
+
+`fragmentshader.glsl`:
+```diff
+uniform float time;
+
++float normalize(float min, float max, float value) {
++  return (value - min) / (max - min);
++}
+
+void main() {
+  vec3 color = vec3(1.0, 1.0, 1.0);
+-  float alpha = sin(0.1 * time);
++  float alpha = normalize(-1.0, 1.0, sin(0.1 * time));
+
+  gl_FragColor = vec4(color, alpha);
+}
+```
+
+We now get a nicer oscillation of the transparency!
+
+Next we will re-introduce some color by recreating the `MeshNormalMaterial` we used in previous tasks.
 
 ## Passing Normals
 
@@ -154,13 +253,18 @@ This will ensure that a `varying` with the name `normalVec` is passed to the fra
 
 `fragmentshader.glsl`:
 ```diff
+uniform float time;
 +varying vec3 normalVec;
 
-void main() {
-    vec3 color = vec3(1.0, 1.0, 1.0);
-    float alpha = 1.0;
+float normalize(float min, float max, float value) {
+  return (value - min) / (max - min);
+}
 
-    gl_FragColor = vec4(color, alpha);
+void main() {
+  vec3 color = vec3(1.0, 1.0, 1.0);
+  float alpha = normalize(-1.0, 1.0, sin(0.1 * time));
+
+  gl_FragColor = vec4(color, alpha);
 }
 ```
 
@@ -172,12 +276,17 @@ We can now use the normal vector to change how we calculate the color.
 
 `fragmentshader.glsl`:
 ```diff
-+varying vec3 normalVec;
+uniform float time;
+varying vec3 normalVec;
+
+float normalize(float min, float max, float value) {
+  return (value - min) / (max - min);
+}
 
 void main() {
 -  vec3 color = vec3(1.0, 1.0, 1.0);
-+  vec3 color = normalVec;
-  float alpha = 1.0;
++  vec3 color = normalVec
+  float alpha = normalize(-1.0, 1.0, sin(0.1 * time));
 
   gl_FragColor = vec4(color, alpha);
 }
@@ -187,12 +296,17 @@ By using the normal vector as the RGB-component of our color we get this cool lo
 
 `fragmentshader.glsl`:
 ```diff
-+varying vec3 normalVec;
+uniform float time;
+varying vec3 normalVec;
+
+float normalize(float min, float max, float value) {
+  return (value - min) / (max - min);
+}
 
 void main() {
--  vec3 color = normalVec;
+-  vec3 color = normalVec
 +  vec3 color = 0.5 * normalVec + 0.5;
-  float alpha = 1.0;
+  float alpha = normalize(-1.0, 1.0, sin(0.1 * time));
 
   gl_FragColor = vec4(color, alpha);
 }
@@ -200,12 +314,8 @@ void main() {
 
 We now have dancing cubes which use our very own glsl-code!
 
-## Adding more input
-
-TODO: Ta inn en uniform som brukes til å sette farge
-
 Try playing around with some of the parameters:
 
 - Change how we use the normal vector to set the color
-- Try to calculate a distinct color some other way, for instance using sine
+- Try to calculate a distinct color some other way
 - Try to pass other data as a uniform and use that to change color
