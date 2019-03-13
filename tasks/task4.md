@@ -26,7 +26,7 @@ The main responsibility of a vertex shader is to convert (or project) the model 
 
 - **2:** Project the model space coordinates into a common world space.
 
-  This is done by using a modelViewMatrix and matrix multiplication. `three.js` provides a uniform containing the modelViewMatrix for this particular geometry.
+  This is done by using a `modelViewMatrix` and matrix multiplication. `three.js` provides a uniform containing the `modelViewMatrix` for this particular geometry.
 
 - **3:** Project the world space coordinates into screen space.
 
