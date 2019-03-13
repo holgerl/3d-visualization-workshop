@@ -67,7 +67,7 @@ The different numbers in the `SphereGeometry`-constructor is the radius, the num
 
 In the previous task we mentioned the different ways to pass data to a shader program and looked at how Uniforms worked. The other way to pass data into a shader is by using Attributes.
 
-Attributes are attached to vertices, meaning we can have unique values per vertice. This is nice if we want to displace each vertice in some random way.
+Attributes are attached to vertices, meaning we can have unique values per vertex. This is nice if we want to displace each vertex in some random way.
 
 In order to attach values to vertices in a `three.js`-geometry we need to change from a normal geometry to a buffer geometry. As with so many things in the `three.js` (and WebGL) world, the difference between a normal geometry and a buffer geometry is mostly in its performance characteristics. The API and behavior is mostly the same.
 
@@ -90,7 +90,7 @@ geometry.addAttribute(
 );
 ```
 
-This piece of code creates an empty `Float32Array`, which has the same length as the number of positions in the geometry. We also use the `addAttribute`-method on the geometry to add the values as a `BufferAttribute` with item size `1`, meaning each value of the array represents one value in the attribute. If we wanted to pass for instance color-values we would use an item size of `3`, meaning that 3 by 3 values represent one attribute-value (a vec3).
+This piece of code creates an empty `Float32Array`, which has the same length as the number of positions in the geometry. We also use the `addAttribute`-method on the geometry to add the values as a `BufferAttribute` with item size `1`, meaning each value of the array represents one value in the attribute. If we wanted to pass for instance color-values we would use an item size of `3`, meaning that 3 and 3 values represent one attribute-value (a vec3).
 
 This piece of code will make the `displacement` attribute available in the vertex shader program and we can use it to displace the vertex.
 
