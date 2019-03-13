@@ -34,7 +34,7 @@ There are two ways to pass data into a shader: Uniforms and Attributes. In addit
 
 We'll get into Attributes in the next task, so for now we'll focus on Uniforms and Varyings.
 
-A uniform is a value that is constant across all invocations of a shader program. This is typically used for things like current time, textures or sound level. Values that are the same for all vertices in a geometry.
+A uniform is a value that is constant across all invocations of a shader program in a render. This is typically used for things like current time, textures or sound level. Values that are the same for all vertices in a geometry. Note that the uniforms can be changed between each fully rendered image, so they are not constant forever.
 
 A varying is a kind of value that is assigned in a vertex shader and read in a fragment shader. It is helpful for passing along data derived from the current vertex. For instance the normal vector (the direction of up for a given vertex) or the texture value for the given vertex.
 
