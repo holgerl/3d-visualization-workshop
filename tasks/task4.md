@@ -152,4 +152,7 @@ This wraps up the workshop, but if you have time to spare here are some suggesti
 - Add some noise to the displacement to produce a more interesting effect
 - Try to change the displacement function to something other than sine
 - Try to add other attributes for things other than displacement
-- [Add dat.gui](https://github.com/holgerl/3d-visualization-workshop/tree/master/tasks/bonus-task.md) to your program to have easy access to parameter tweaking
+
+## Dat.gui control panel elective
+
+Now that you have reached 3D nirvana. We encourage you to try the english elective [Add dat.gui](https://github.com/holgerl/3d-visualization-workshop/tree/master/tasks/bonus-task.md) to have easy access to parameter tweaking.
