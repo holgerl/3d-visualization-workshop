@@ -74,12 +74,12 @@ As a preparation to write our first bit of glsl-code, we will take a quick look 
 // Examples of variable declarations
 
 float a = 42.0;
-float b = 42;  // This will error, because ints are not floats
+float b = 42;  // This will produce an error, because ints are not floats
 int c = 42;
 bool d = true;
 
-vec3 myVector = vec3(2.0, 1.5, 0.5); // This is a 3D vector. There are also 2D and 4D vectors, as vec2 and vec4
-float aCoordinate = minVektor.x; // You can read components of vectors using .x|y|z|w or any combination of them
+vec3 myVector = vec3(2.0, 1.5, 0.5); // This is a 3D vector. There are also 2D and 4D vectors, such as vec2 and vec4
+float aCoordinate = myVector.x; // You can read components of vectors using .x|y|z|w or any combination of them
 vec2 subVector = myVector.xy;
 
 // You can declare procedures
@@ -97,8 +97,8 @@ Glsl also has built in math operations, that are overloaded to work on numbers, 
 float e = (a + c) / 23.0;
 
 vec3 myVector = vec3(1.0, 1.0, 1.0);
-vec3 longerVector = minVektor * 3.0; // Vector multiplied with a scalar (x * 3.0, y * 3.0, z * 3.0)
-vec3 dot = myVector * longerVector; // Dot-product of two vectors
+vec3 longerVector = myVector * 3.0; // Vector multiplied with a scalar (x * 3.0, y * 3.0, z * 3.0)
+vec3 dot = myVector * longerVector; // Dot product of two vectors
 
 // We also have trigonometry and other helpful math functions
 float f = sin(0.5); // sine
