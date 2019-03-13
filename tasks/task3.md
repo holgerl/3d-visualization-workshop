@@ -24,7 +24,7 @@ Shader programs are written in a language of their own called GLSL. It is very s
 
 All the vertices and faces that make up geometries are loaded into the GPU and can be used as input to shader programs.
 
-The shader programs are part of a rendering pipeline. The first step in the pipeline is the vertex shader, which runs its code once per vertice in a geometry (hence the name vertex shader). The next step is the fragment shader which runs once per pixel in the screen space coordinate system defined by the output of the vertex shader. The final step is what is visible on your screen.
+The shader programs are part of a rendering pipeline. The first step in the pipeline is the vertex shader, which runs its code once per vertex in a geometry (hence the name vertex shader). The next step is the fragment shader which runs once per pixel in the screen space coordinate system defined by the output of the vertex shader. The final step is what is visible on your screen.
 
 ## Passing data from JS to the GPU
 
