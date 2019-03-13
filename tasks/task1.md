@@ -168,7 +168,7 @@ We can now combine these three concepts and make a cube
 ```js
 let geometry = new THREE.BoxGeometry(height, width, depth);
 let material = new THREE.MeshNormalMaterial();
-let cube = THREE.Mesh(geometry, material);
+let cube = new THREE.Mesh(geometry, material);
 }
 ```
 
